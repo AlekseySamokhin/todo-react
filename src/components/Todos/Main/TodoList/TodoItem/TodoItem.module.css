@@ -1,0 +1,68 @@
+.TodoItem:not(:first-child) {
+    margin-top: 20px;
+}
+
+.TodoItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    background-color: #4d4646;
+    font-size: 20px;
+    padding-left: 16px;
+}
+
+.TodoItem__label {
+    display: flex;
+    align-items: center;
+    width: 77%;
+    display: flex;
+}
+
+.TodoItem__checkbox {
+    height: 22.5px;
+    width: 22.5px;
+}
+
+.TodoItem__title {
+    padding-left: 12px;
+}
+
+.TodoItem__buttons {
+    color: white;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100px;
+}
+
+.TodoItem__icon {
+    color: #fff;
+}
+
+.TodoItem__edit {
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    border: none;
+    color: #fff;
+    background-color: #3167be;
+    height: 50px;
+    width: 50%;
+}
+
+.TodoItem__delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 27px;
+    color: #fff;
+    border: none;
+    background-color: #dd276d;
+    height: 50px;
+    width: 50%;
+}

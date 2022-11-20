@@ -1,0 +1,16 @@
+.footer {
+    padding: 20px 95px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.todo__count {
+}
+
+.filter__list {
+    display: flex;
+}
+
+.filter__item:not(:last-child) {
+    margin-right: 15px;
+}

@@ -1,0 +1,36 @@
+.InputTask {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.InputTask__input {
+    font-family: inherit;
+    font-style: italic;
+    width: 60%;
+    padding: 16px 16px 16px 40px;
+    font-size: 21px;
+    border: none;
+    color: #000;
+    -webkit-box-shadow: 0px 0px 14px 8px rgba(156, 155, 152, 1) inset;
+    -moz-box-shadow: 0px 0px 14px 8px rgba(156, 155, 152, 1) inset;
+    box-shadow: 0px 0px 14px 8px rgba(156, 155, 152, 1) inset;
+    margin-right: 10px;
+}
+
+.InputTask__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 57px;
+    width: 100px;
+    font-size: 30px;
+    background-color: #299245;
+    cursor: pointer;
+    padding: 16px 0;
+    color: #fff;
+    border: none;
+}
+
