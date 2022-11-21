@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   color: #fff;
   margin-top: 35px;
@@ -13,4 +14,9 @@
 
 .TodoListSheet {
   width: 77%;
+}
+
+.TodoListEmpty {
+  font-style: oblique;
+  font-size: 20px;
 }

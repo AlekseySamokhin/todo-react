@@ -6,7 +6,7 @@
   color: #fff;
 }
 
-.InputTask__input {
+.InputTaskInput {
   font-family: inherit;
   font-style: italic;
   width: 60%;
@@ -20,7 +20,7 @@
   margin-right: 10px;
 }
 
-.InputTask__button {
+.InputTaskButton {
   display: flex;
   justify-content: center;
   align-items: center;
