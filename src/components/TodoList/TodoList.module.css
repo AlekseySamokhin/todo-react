@@ -1,0 +1,16 @@
+.TodoList {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-top: 35px;
+}
+
+.TodoListSheet:not(:first-child) {
+  margin-top: 20px;
+}
+
+.TodoListSheet {
+  width: 77%;
+}

@@ -7,7 +7,7 @@ function App() {
     <div className={styles.container}>
       <Todos />
     </div>
-  )
+  );
 }
 
 export default App;
