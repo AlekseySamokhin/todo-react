@@ -11,6 +11,12 @@ const InputTask = (props) => {
 
   const [value, setValue] = useState("");
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleAddTask(e);
+    }
+  };
+
   const handleChangeValue = (e) => {
     setValue(e.target.value);
   };
@@ -18,11 +24,11 @@ const InputTask = (props) => {
   const handleAddTask = (e) => {
     e.preventDefault();
 
-    if (value !== "") {
+    if (value.trim() !== "") {
       const newTask = {
         title: value.trim(),
         completed: false,
-        id: uuidv4().slice(0, 8),
+        id: uuidv4(),
       };
 
       setTodos([...todos, newTask]);
@@ -40,6 +46,7 @@ const InputTask = (props) => {
         placeholder="What needs to be done?"
         type="text"
         value={value}
+        onKeyDown={handleKeyDown}
         onChange={handleChangeValue}
       />
       <button className={styles.InputTaskButton} onClick={handleAddTask}>
