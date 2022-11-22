@@ -12,6 +12,10 @@ const TodoItem = (props) => {
     setTodos(removeTodo);
   };
 
+  const handleEditTodo = (id) => {
+    console.log("Edit!");
+  };
+
   const handleChangeBoxTodo = (id) => {
     const checkTodo = todos.map((todo) => {
       if (todo.id === id) {
@@ -29,7 +33,10 @@ const TodoItem = (props) => {
 
   return (
     <li className={styles.TodoItem}>
-      <div className={styles.TodoItemText}>
+      <div
+        className={styles.TodoItemText}
+        onDoubleClick={() => handleEditTodo(todo.id)}
+      >
         <input
           className={styles.TodoItemCheckbox}
           type="checkbox"
@@ -47,7 +54,10 @@ const TodoItem = (props) => {
         </h3>
       </div>
       <div className={styles.TodoItemButtons}>
-        <button className={styles.TodoItemEdit}>
+        <button
+          className={styles.TodoItemEdit}
+          onClick={() => handleEditTodo(todo.id)}
+        >
           <BiPencil />
         </button>
         <button

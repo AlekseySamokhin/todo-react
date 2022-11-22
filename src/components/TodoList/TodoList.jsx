@@ -18,7 +18,9 @@ const TodoList = (props) => {
         ))}
       </ul>
       {todos.length === 0 && (
-        <h3 className={styles.TodoListEmpty}>Todo List for today is empty...</h3>
+        <h3 className={styles.TodoListEmpty}>
+          Todo List for today is empty...
+        </h3>
       )}
     </div>
   );
