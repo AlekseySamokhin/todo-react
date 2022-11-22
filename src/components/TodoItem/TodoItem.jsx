@@ -24,7 +24,7 @@ const TodoItem = (props) => {
 
   return (
     <li id={todo.id} className={styles.TodoItem}>
-      <label className={styles.TodoItemLabel}>
+      <div className={styles.TodoItemText}>
         <input
           className={styles.TodoItemCheckbox}
           type="checkbox"
@@ -32,7 +32,7 @@ const TodoItem = (props) => {
           onClick={handleChangeBox}
         />
         <h3 className={styles.TodoItemTitle}>{todo.title}</h3>
-      </label>
+      </div>
       <div className={styles.TodoItemButtons}>
         <button className={styles.TodoItemEdit}>
           <BiPencil />
