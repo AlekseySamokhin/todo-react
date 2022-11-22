@@ -22,7 +22,7 @@ const InputTask = (props) => {
       const newTask = {
         title: value.trim(),
         completed: false,
-        id: uuidv4(),
+        id: Date.now(),
       };
 
       setTodos([...todos, newTask]);
