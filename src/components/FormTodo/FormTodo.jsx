@@ -2,8 +2,6 @@ import { useState } from "react";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
-import { v4 as uuidv4 } from "uuid";
-
 import styles from "./FormTodo.module.css";
 
 const InputTask = (props) => {

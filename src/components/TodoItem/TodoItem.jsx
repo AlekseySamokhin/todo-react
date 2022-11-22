@@ -1,23 +1,30 @@
-import { useState } from "react";
-
 import { FiX } from "react-icons/fi";
 import { BiPencil } from "react-icons/bi";
 
 import styles from "./TodoItem.module.css";
 
 const TodoItem = (props) => {
-  const [checked, setChecked] = useState(false);
-
   const { todo, todos, setTodos } = props;
-
-  const handleChangeBox = () => {
-    setChecked(!checked);
-  };
 
   const handleDeleteTodo = (id) => {
     const removeTodo = todos.filter((todo) => todo.id !== id);
 
     setTodos(removeTodo);
+  };
+
+  const handleChangeBoxTodo = (id) => {
+    const checkTodo = todos.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          completed: !todo.completed,
+        };
+      }
+
+      return todo;
+    });
+
+    setTodos(checkTodo);
   };
 
   return (
@@ -26,10 +33,18 @@ const TodoItem = (props) => {
         <input
           className={styles.TodoItemCheckbox}
           type="checkbox"
-          defaultChecked={checked}
-          onClick={handleChangeBox}
+          checked={todo.completed}
+          onChange={() => handleChangeBoxTodo(todo.id)}
         />
-        <h3 className={styles.TodoItemTitle}>{todo.title}</h3>
+        <h3 className={styles.TodoItemTitle}>
+          {todo.completed ? (
+            <span style={{ textDecoration: "line-through", color: "#000" }}>
+              {todo.title}
+            </span>
+          ) : (
+            <span>{todo.title}</span>
+          )}
+        </h3>
       </div>
       <div className={styles.TodoItemButtons}>
         <button className={styles.TodoItemEdit}>
