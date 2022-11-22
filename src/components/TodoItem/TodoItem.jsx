@@ -12,8 +12,6 @@ const TodoItem = (props) => {
 
   const handleChangeBox = () => {
     setChecked(!checked);
-    
-    
   };
 
   const handleDeleteTodo = (id) => {
@@ -23,7 +21,7 @@ const TodoItem = (props) => {
   };
 
   return (
-    <li id={todo.id} className={styles.TodoItem}>
+    <li className={styles.TodoItem}>
       <div className={styles.TodoItemText}>
         <input
           className={styles.TodoItemCheckbox}

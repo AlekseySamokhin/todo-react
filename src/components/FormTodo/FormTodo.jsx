@@ -4,18 +4,12 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import { v4 as uuidv4 } from "uuid";
 
-import styles from "./InputTask.module.css";
+import styles from "./FormTodo.module.css";
 
 const InputTask = (props) => {
   const { todos, setTodos } = props;
 
   const [value, setValue] = useState("");
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleAddTask(e);
-    }
-  };
 
   const handleChangeValue = (e) => {
     setValue(e.target.value);
@@ -40,19 +34,18 @@ const InputTask = (props) => {
   };
 
   return (
-    <div className={styles.InputTask}>
+    <form className={styles.formTodo}>
       <input
-        className={styles.InputTaskInput}
+        className={styles.formTodoInput}
         placeholder="What needs to be done?"
         type="text"
         value={value}
-        onKeyDown={handleKeyDown}
         onChange={handleChangeValue}
       />
-      <button className={styles.InputTaskButton} onClick={handleAddTask}>
+      <button className={styles.formTodoButton} onClick={handleAddTask}>
         <AiOutlinePlusCircle />
       </button>
-    </div>
+    </form>
   );
 };
 

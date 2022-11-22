@@ -1,5 +1,5 @@
-import InputTask from "../InputTask";
-import TodoList from "../TodoList/TodoList";
+import FormTodo from "../FormTodo";
+import TodoList from "../TodoList";
 
 import styles from "./Main.module.css";
 
@@ -8,7 +8,7 @@ const Main = (props) => {
 
   return (
     <div className={styles.main}>
-      <InputTask todos={todos} setTodos={setTodos} />
+      <FormTodo todos={todos} setTodos={setTodos} />
       <TodoList todos={todos} setTodos={setTodos} />
     </div>
   );
