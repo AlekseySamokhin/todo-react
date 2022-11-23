@@ -3,12 +3,12 @@ import TodoItem from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
 const TodoList = (props) => {
-  const { value, setValue, todos, setTodos } = props;
+  const { value, setValue, todos, setTodos, filterMap, filter } = props;
 
   return (
     <div className={styles.TodoList}>
       <ul className={styles.TodoListSheet}>
-        {todos.map((item) => (
+        {todos.filter(filterMap[filter]).map((item) => (
           <TodoItem
             key={item.id}
             todo={item}

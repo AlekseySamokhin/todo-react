@@ -12,3 +12,8 @@
 .filterItem:not(:last-child) {
   margin-right: 15px;
 }
+
+.todoFilter {
+  display: flex;
+  gap: 10px;
+}

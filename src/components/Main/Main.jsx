@@ -6,7 +6,7 @@ import TodoList from "../TodoList";
 import styles from "./Main.module.css";
 
 const Main = (props) => {
-  const { todos, setTodos } = props;
+  const { todos, setTodos, filter, filterMap } = props;
 
   const [value, setValue] = useState("");
 
@@ -18,7 +18,13 @@ const Main = (props) => {
         todos={todos}
         setTodos={setTodos}
       />
-      <TodoList value={value} todos={todos} setTodos={setTodos} />
+      <TodoList
+        filter={filter}
+        filterMap={filterMap}
+        value={value}
+        todos={todos}
+        setTodos={setTodos}
+      />
     </div>
   );
 };
