@@ -2,20 +2,21 @@ import TodoItem from "../TodoItem/TodoItem";
 
 import styles from "./TodoList.module.css";
 
+import filters from "../../filters";
+
 const TodoList = (props) => {
-  const { value, setValue, todos, setTodos, filterMap, filter } = props;
+  const { todos, filter, deleteTodo, editTodo, checkTodo } = props;
 
   return (
     <div className={styles.TodoList}>
       <ul className={styles.TodoListSheet}>
-        {todos.filter(filterMap[filter]).map((item) => (
+        {todos.filter(filters[filter]).map((item) => (
           <TodoItem
             key={item.id}
             todo={item}
-            todos={todos}
-            setTodos={setTodos}
-            value={value}
-            setValue={setValue}
+            deleteTodo={deleteTodo}
+            editTodo={editTodo}
+            checkTodo={checkTodo}
           />
         ))}
       </ul>

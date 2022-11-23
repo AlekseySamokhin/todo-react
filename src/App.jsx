@@ -3,37 +3,72 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
-import FilterButton from "./components/FilterButton";
 
 import styles from "./App.module.css";
 
-const LOCAL_STORAGE_KEY = "todos";
-
-const FILTER_MAP = {
-  All: () => true,
-  Active: (todo) => !todo.completed,
-  Completed: (todo) => todo.completed,
-};
-
 const App = () => {
   const [todos, setTodos] = useState(
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || []
+    JSON.parse(localStorage.getItem("todos")) || []
   );
 
-  const [filter, setFilter] = useState("All");
-
-  const filterList = Object.keys(FILTER_MAP).map((name) => (
-    <FilterButton
-      key={name}
-      name={name}
-      isPressed={name === filter}
-      setFilter={setFilter}
-    />
-  ));
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+
+  const createTodo = (title) => {
+    title = title.trim();
+
+    if (title !== "") {
+      const newTodo = {
+        title,
+        completed: false,
+        id: Date.now(),
+      };
+
+      setTodos([...todos, newTodo]);
+    } else {
+      alert("Добавь, пожалуйста, текст задачи!");
+    }
+  };
+
+  const deleteTodo = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+
+    setTodos(newTodos);
+  };
+
+  const editTodo = (id, title) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, title };
+      }
+
+      return todo;
+    });
+
+    setTodos(newTodos);
+  };
+
+  const checkTodo = (id) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          completed: !todo.completed,
+        };
+      }
+
+      return todo;
+    });
+
+    setTodos(newTodos);
+  };
+
+  const changeFilter = (name) => {
+    setFilter(name);
+  };
 
   return (
     <div className={styles.container}>
@@ -41,11 +76,13 @@ const App = () => {
         <Header />
         <Main
           todos={todos}
-          filterMap={FILTER_MAP}
           filter={filter}
-          setTodos={setTodos}
+          createTodo={createTodo}
+          deleteTodo={deleteTodo}
+          editTodo={editTodo}
+          checkTodo={checkTodo}
         />
-        <Footer filterList={filterList} todos={todos} />
+        <Footer changeFilter={changeFilter} todos={todos} />
       </div>
     </div>
   );

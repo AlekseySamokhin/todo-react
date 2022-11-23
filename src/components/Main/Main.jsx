@@ -1,29 +1,20 @@
-import { useState } from "react";
-
 import FormTodo from "../FormTodo";
 import TodoList from "../TodoList";
 
 import styles from "./Main.module.css";
 
 const Main = (props) => {
-  const { todos, setTodos, filter, filterMap } = props;
-
-  const [value, setValue] = useState("");
+  const { todos, filter, createTodo, deleteTodo, editTodo, checkTodo } = props;
 
   return (
     <div className={styles.main}>
-      <FormTodo
-        value={value}
-        setValue={setValue}
-        todos={todos}
-        setTodos={setTodos}
-      />
+      <FormTodo createTodo={createTodo} />
       <TodoList
         filter={filter}
-        filterMap={filterMap}
-        value={value}
         todos={todos}
-        setTodos={setTodos}
+        deleteTodo={deleteTodo}
+        editTodo={editTodo}
+        checkTodo={checkTodo}
       />
     </div>
   );

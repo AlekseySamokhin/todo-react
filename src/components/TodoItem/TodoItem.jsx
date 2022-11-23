@@ -5,50 +5,27 @@ import { BiPencil } from "react-icons/bi";
 
 import styles from "./TodoItem.module.css";
 
-const TodoItem = (props) => {
-  const { todo, todos, setTodos } = props;
-
+const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleToggleEdit = () => setIsEditing(!isEditing);
 
-  const handleDeleteTodo = (id) => {
-    const removeTodo = todos.filter((todo) => todo.id !== id);
-
-    setTodos(removeTodo);
-  };
-
-  const handleChangeBoxTodo = (id) => {
-    const checkTodo = todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      }
-
-      return todo;
-    });
-
-    setTodos(checkTodo);
-  };
-
-  const handleUpdateTodo = (updateValue, id) => {
-    const updateTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, title: updateValue };
-      }
-
-      return todo;
-    });
-
-    setTodos(updateTodos);
-  };
-
-  const handleUpdateTodoDone = (e) => {
-    if (e.key === "Enter") {
+  const handleEditDone = (event) => {
+    if (event.key === "Enter") {
       setIsEditing(false);
     }
+  };
+
+  const handleDeleteTodo = (id) => {
+    deleteTodo(id);
+  };
+
+  const handleCheckTodo = (id) => {
+    checkTodo(id);
+  };
+
+  const handleEditTodo = (id, title) => {
+    editTodo(id, title);
   };
 
   return (
@@ -59,7 +36,7 @@ const TodoItem = (props) => {
             className={styles.TodoItemCheckbox}
             type="checkbox"
             checked={todo.completed}
-            onChange={() => handleChangeBoxTodo(todo.id)}
+            onChange={() => handleCheckTodo(todo.id)}
           />
           <h3 className={styles.TodoItemTitle}>
             {todo.completed ? (
@@ -77,9 +54,9 @@ const TodoItem = (props) => {
           className={styles.TodoInput}
           value={todo.title}
           onChange={(e) => {
-            handleUpdateTodo(e.target.value, todo.id);
+            handleEditTodo(todo.id, e.target.value);
           }}
-          onKeyDown={handleUpdateTodoDone}
+          onKeyDown={handleEditDone}
           autoFocus
         />
       )}

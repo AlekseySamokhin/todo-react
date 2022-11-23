@@ -1,7 +1,10 @@
 import styles from "./Footer.module.css";
 
+import filters from "../../filters";
+import FilterButton from "../FilterButton/FilterButton";
+
 const Footer = (props) => {
-  const { todos, filterList } = props;
+  const { todos, changeFilter } = props;
 
   return (
     <div className={styles.footer}>
@@ -9,7 +12,11 @@ const Footer = (props) => {
         {todos.length > 1 ? `${todos.length} items ` : `${todos.length} item `}
         left
       </span>
-      <div className={styles.todoFilter}>{filterList}</div>
+      <div className={styles.todoFilter}>
+        {Object.keys(filters).map((name) => (
+          <FilterButton key={name} name={name} changeFilter={changeFilter} />
+        ))}
+      </div>
     </div>
   );
 };

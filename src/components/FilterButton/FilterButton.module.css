@@ -1,3 +1,6 @@
 .filterButton {
-  display: flex;
+  border: none;
+  background-color: blue;
+  color: #fff;
+  padding: 10px;
 }

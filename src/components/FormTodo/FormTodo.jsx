@@ -1,34 +1,22 @@
-// import { useState } from "react";
+import { useState } from "react";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import styles from "./FormTodo.module.css";
 
-const InputTask = (props) => {
-  const { value, setValue, todos, setTodos } = props;
-
-  // const [value, setValue] = useState("");
+const InputTask = ({ createTodo }) => {
+  const [value, setValue] = useState("");
 
   const handleChangeValue = (e) => {
+    e.preventDefault();
     setValue(e.target.value);
   };
 
-  const handleAddTask = (e) => {
+  const handleAddTodo = (e) => {
     e.preventDefault();
+    createTodo(value);
 
-    if (value.trim() !== "") {
-      const newTask = {
-        title: value.trim(),
-        completed: false,
-        id: Date.now(),
-      };
-
-      setTodos([...todos, newTask]);
-
-      setValue("");
-    } else {
-      alert("Добавь, пожалуйста, текст задачи!");
-    }
+    setValue("");
   };
 
   return (
@@ -40,7 +28,7 @@ const InputTask = (props) => {
         value={value}
         onChange={handleChangeValue}
       />
-      <button className={styles.formTodoButton} onClick={handleAddTask}>
+      <button className={styles.formTodoButton} onClick={handleAddTodo}>
         <AiOutlinePlusCircle />
       </button>
     </form>

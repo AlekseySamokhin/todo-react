@@ -1,18 +1,20 @@
 import styles from "./FilterButton.module.css";
 
 const FilterButton = (props) => {
-  const { name, setFilter, isPressed } = props;
+  const { name, changeFilter, isPressed } = props;
+
+  const handleChangeFilter = (name) => {
+    changeFilter(name);
+  };
 
   return (
     <button
       type="button"
-      className="btn toggle-btn"
+      className={styles.filterButton}
       aria-pressed={isPressed}
-      onClick={() => setFilter(name)}
+      onClick={() => handleChangeFilter(name)}
     >
-      <span className="visually-hidden">Show </span>
       <span>{name}</span>
-      <span className="visually-hidden"> tasks</span>
     </button>
   );
 };
