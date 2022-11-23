@@ -3,7 +3,7 @@ import TodoItem from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
 const TodoList = (props) => {
-  const { todos, setTodos } = props;
+  const { value, setValue, todos, setTodos } = props;
 
   return (
     <div className={styles.TodoList}>
@@ -14,6 +14,8 @@ const TodoList = (props) => {
             todo={item}
             todos={todos}
             setTodos={setTodos}
+            value={value}
+            setValue={setValue}
           />
         ))}
       </ul>

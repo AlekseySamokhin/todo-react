@@ -1,13 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import styles from "./FormTodo.module.css";
 
 const InputTask = (props) => {
-  const { todos, setTodos } = props;
+  const { value, setValue, todos, setTodos } = props;
 
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
 
   const handleChangeValue = (e) => {
     setValue(e.target.value);
