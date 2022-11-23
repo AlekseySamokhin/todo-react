@@ -34,9 +34,9 @@ const TodoItem = (props) => {
   };
 
   const handleUpdateTodo = (updateValue, id) => {
-    const updateTodos = todos.filter((todo) => {
+    const updateTodos = todos.map((todo) => {
       if (todo.id === id) {
-        todo.title = updateValue;
+        return { ...todo, title: updateValue };
       }
 
       return todo;
