@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 import FormTodo from "./components/FormTodo";
 import TodoList from "./components/TodoList";
 
@@ -36,7 +38,7 @@ const App = () => {
       const newTodo = {
         title,
         completed: false,
-        id: Date.now(),
+        id: uuidv4(),
       };
 
       setTodos([...todos, newTodo]);
