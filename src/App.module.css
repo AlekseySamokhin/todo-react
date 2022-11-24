@@ -18,12 +18,18 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column-reverse;
+  gap: 25px;
   align-items: center;
   padding: 25px 0;
   background-color: #4d4646;
   -webkit-box-shadow: 0px 0px 10px 14px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 0px 10px 14px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 10px 14px rgba(0, 0, 0, 0.3);
+}
+
+.headerMain {
+  display: flex;
 }
 
 .headerIcon {
@@ -35,6 +41,11 @@
 .headerTitle {
   font-size: 45px;
   font-weight: bold;
+}
+
+.todoCount {
+  font-size: 20px;
+  font-style: italic;
 }
 
 .main {
@@ -63,9 +74,4 @@
 
 .filterItem:not(:last-child) {
   margin-right: 15px;
-}
-
-.todoFilter {
-  display: flex;
-  gap: 10px;
 }

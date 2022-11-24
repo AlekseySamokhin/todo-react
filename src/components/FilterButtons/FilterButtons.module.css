@@ -1,0 +1,23 @@
+.filterTodos {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.filterButton {
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  min-width: 120px;
+  background-color: rgb(129, 127, 26);
+  padding: 10px;
+}
+
+.filterButtonActive {
+  border: 2px solid #fff;
+  font-size: 16px;
+  color: #fff;
+  min-width: 120px;
+  background-color: rgb(129, 127, 26);
+  padding: 10px;
+}

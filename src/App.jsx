@@ -2,13 +2,12 @@ import { useState, useEffect, useMemo } from "react";
 
 import FormTodo from "./components/FormTodo";
 import TodoList from "./components/TodoList";
-import FilterButton from "./components/FilterButton";
+
+import FilterButtons from "./components/FilterButtons/FilterButtons";
 
 import { FaRegCheckCircle } from "react-icons/fa";
 
 import styles from "./App.module.css";
-
-import filters from "./filters";
 
 const App = () => {
   const [todos, setTodos] = useState(
@@ -83,8 +82,16 @@ const App = () => {
     <div className={styles.container}>
       <div className={styles.todos}>
         <div className={styles.header}>
-          <FaRegCheckCircle className={styles.headerIcon} />
-          <h1 className={styles.headerTitle}>Todo list</h1>
+          <div className={styles.todoCount}>
+            {memoizedDataTodos[filter].length > 1
+              ? `${memoizedDataTodos[filter].length} items `
+              : `${memoizedDataTodos[filter].length} item `}
+            left
+          </div>
+          <div className={styles.headerMain}>
+            <FaRegCheckCircle className={styles.headerIcon} />
+            <h1 className={styles.headerTitle}>Todo list</h1>
+          </div>
         </div>
 
         <div className={styles.main}>
@@ -99,21 +106,11 @@ const App = () => {
         </div>
 
         <div className={styles.footer}>
-          <span className={styles.todoCount}>
-            {todos.length > 1
-              ? `${todos.length} items `
-              : `${todos.length} item `}
-            left
-          </span>
-          <div className={styles.todoFilter}>
-            {Object.keys(filters).map((filter) => (
-              <FilterButton
-                key={filter}
-                filter={filter}
-                setFilter={setFilter}
-              />
-            ))}
-          </div>
+          <FilterButtons
+            filter={filter}
+            setFilter={setFilter}
+            memoizedDataTodos={memoizedDataTodos}
+          />
         </div>
       </div>
     </div>
