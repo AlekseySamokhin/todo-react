@@ -11,6 +11,7 @@ const FilterButtons = ({ filter, setFilter, memoizedDataTodos }) => {
     <div className={styles.filterTodos}>
       {buttonsFilters.map((button) => (
         <button
+          key={button.title}
           type="button"
           className={
             button.title === filter

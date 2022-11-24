@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import FormTodo from "./components/FormTodo";
 import TodoList from "./components/TodoList";
 
-import FilterButtons from "./components/FilterButtons/FilterButtons";
+import FilterButtons from "./components/FilterButtons";
 
 import { FaRegCheckCircle } from "react-icons/fa";
 
