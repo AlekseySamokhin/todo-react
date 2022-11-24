@@ -2,15 +2,17 @@ import TodoItem from "../TodoItem/TodoItem";
 
 import styles from "./TodoList.module.css";
 
-import filters from "../../filters";
-
-const TodoList = (props) => {
-  const { todos, filter, deleteTodo, editTodo, checkTodo } = props;
-
+const TodoList = ({
+  memoizedDataTodos,
+  filter,
+  deleteTodo,
+  editTodo,
+  checkTodo,
+}) => {
   return (
-    <div className={styles.TodoList}>
-      <ul className={styles.TodoListSheet}>
-        {todos.filter(filters[filter]).map((item) => (
+    <div className={styles.todoList}>
+      <ul className={styles.todoListSheet}>
+        {memoizedDataTodos[filter].map((item) => (
           <TodoItem
             key={item.id}
             todo={item}
@@ -20,9 +22,10 @@ const TodoList = (props) => {
           />
         ))}
       </ul>
-      {todos.length === 0 && (
-        <h3 className={styles.TodoListEmpty}>
-          Todo List for today is empty...
+      {memoizedDataTodos[filter].length === 0 && (
+        <h3 className={styles.todoListEmpty}>
+          {filter[0].toUpperCase() + filter.slice(1)} todos for today is
+          empty...
         </h3>
       )}
     </div>

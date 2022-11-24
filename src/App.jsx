@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import FormTodo from "./components/FormTodo";
 import TodoList from "./components/TodoList";
@@ -6,9 +6,9 @@ import FilterButton from "./components/FilterButton";
 
 import { FaRegCheckCircle } from "react-icons/fa";
 
-import filters from "./filters";
-
 import styles from "./App.module.css";
+
+import filters from "./filters";
 
 const App = () => {
   const [todos, setTodos] = useState(
@@ -20,6 +20,15 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+
+  const memoizedDataTodos = useMemo(
+    () => ({
+      all: todos,
+      active: todos.filter((todo) => !todo.completed),
+      completed: todos.filter((todo) => todo.completed),
+    }),
+    [todos]
+  );
 
   const createTodo = (title) => {
     title = title.trim();
@@ -70,10 +79,6 @@ const App = () => {
     setTodos(newTodos);
   };
 
-  const changeFilter = (filter) => {
-    setFilter(filter);
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.todos}>
@@ -85,7 +90,7 @@ const App = () => {
         <div className={styles.main}>
           <FormTodo createTodo={createTodo} />
           <TodoList
-            todos={todos}
+            memoizedDataTodos={memoizedDataTodos}
             filter={filter}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
@@ -105,7 +110,7 @@ const App = () => {
               <FilterButton
                 key={filter}
                 filter={filter}
-                changeFilter={changeFilter}
+                setFilter={setFilter}
               />
             ))}
           </div>

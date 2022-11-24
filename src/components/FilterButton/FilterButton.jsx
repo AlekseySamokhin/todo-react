@@ -1,17 +1,11 @@
 import styles from "./FilterButton.module.css";
 
-const FilterButton = (props) => {
-  const { filter, changeFilter } = props;
-
-  const handleChangeFilter = (filter) => {
-    changeFilter(filter);
-  };
-
+const FilterButton = ({ filter, setFilter }) => {
   return (
     <button
       type="button"
       className={styles.filterButton}
-      onClick={() => handleChangeFilter(filter)}
+      onClick={() => setFilter(filter)}
     >
       {filter}
     </button>

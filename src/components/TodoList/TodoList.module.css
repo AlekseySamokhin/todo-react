@@ -1,4 +1,4 @@
-.TodoList {
+.todoList {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -8,15 +8,15 @@
   margin-top: 35px;
 }
 
-.TodoListSheet:not(:first-child) {
+.todoListSheet:not(:first-child) {
   margin-top: 20px;
 }
 
-.TodoListSheet {
+.todoListSheet {
   width: 77%;
 }
 
-.TodoListEmpty {
+.todoListEmpty {
   font-style: oblique;
   font-size: 20px;
 }
