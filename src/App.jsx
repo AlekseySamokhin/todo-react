@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 
-import Header from "./components/Header";
-import Main from "./components/Main";
-import Footer from "./components/Footer";
+import FormTodo from "./components/FormTodo";
+import TodoList from "./components/TodoList";
+import FilterButton from "./components/FilterButton";
+
+import { FaRegCheckCircle } from "react-icons/fa";
+
+import filters from "./filters";
 
 import styles from "./App.module.css";
 
@@ -66,23 +70,46 @@ const App = () => {
     setTodos(newTodos);
   };
 
-  const changeFilter = (name) => {
-    setFilter(name);
+  const changeFilter = (filter) => {
+    setFilter(filter);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.todos}>
-        <Header />
-        <Main
-          todos={todos}
-          filter={filter}
-          createTodo={createTodo}
-          deleteTodo={deleteTodo}
-          editTodo={editTodo}
-          checkTodo={checkTodo}
-        />
-        <Footer changeFilter={changeFilter} todos={todos} />
+        <div className={styles.header}>
+          <FaRegCheckCircle className={styles.headerIcon} />
+          <h1 className={styles.headerTitle}>Todo list</h1>
+        </div>
+
+        <div className={styles.main}>
+          <FormTodo createTodo={createTodo} />
+          <TodoList
+            todos={todos}
+            filter={filter}
+            deleteTodo={deleteTodo}
+            editTodo={editTodo}
+            checkTodo={checkTodo}
+          />
+        </div>
+
+        <div className={styles.footer}>
+          <span className={styles.todoCount}>
+            {todos.length > 1
+              ? `${todos.length} items `
+              : `${todos.length} item `}
+            left
+          </span>
+          <div className={styles.todoFilter}>
+            {Object.keys(filters).map((filter) => (
+              <FilterButton
+                key={filter}
+                filter={filter}
+                changeFilter={changeFilter}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

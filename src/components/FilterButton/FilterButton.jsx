@@ -1,20 +1,19 @@
 import styles from "./FilterButton.module.css";
 
 const FilterButton = (props) => {
-  const { name, changeFilter, isPressed } = props;
+  const { filter, changeFilter } = props;
 
-  const handleChangeFilter = (name) => {
-    changeFilter(name);
+  const handleChangeFilter = (filter) => {
+    changeFilter(filter);
   };
 
   return (
     <button
       type="button"
       className={styles.filterButton}
-      aria-pressed={isPressed}
-      onClick={() => handleChangeFilter(name)}
+      onClick={() => handleChangeFilter(filter)}
     >
-      <span>{name}</span>
+      {filter}
     </button>
   );
 };
