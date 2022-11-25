@@ -2,23 +2,13 @@ import TodoItem from "../TodoItem/TodoItem";
 
 import styles from "./TodoList.module.css";
 
-const TodoList = ({
-  todosMemo,
-  filter,
-  deleteTodo,
-  editTodo,
-  checkTodo,
-  value,
-  onChangeValue,
-}) => {
+const TodoList = ({ todosMemo, filter, deleteTodo, editTodo, checkTodo }) => {
   return (
     <div className={styles.todoList}>
       <ul className={styles.todoListSheet}>
         {todosMemo[filter].map((todo) => (
           <TodoItem
             key={todo.id}
-            value={value}
-            onChangeValue={onChangeValue}
             todo={todo}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
@@ -28,8 +18,7 @@ const TodoList = ({
       </ul>
       {todosMemo[filter].length === 0 && (
         <h3 className={styles.todoListEmpty}>
-          {filter[0].toUpperCase() + filter.slice(1)} todos for today is
-          empty...
+          {filter} todos for today is empty...
         </h3>
       )}
     </div>

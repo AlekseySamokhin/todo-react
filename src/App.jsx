@@ -1,10 +1,9 @@
-import { useState, useEffect, useMemo } from "react";
-
 import { v4 as uuidv4 } from "uuid";
+
+import { useState, useEffect, useMemo } from "react";
 
 import FormTodo from "./components/FormTodo";
 import TodoList from "./components/TodoList";
-
 import FilterButtons from "./components/FilterButtons";
 
 import { FaRegCheckCircle } from "react-icons/fa";
@@ -16,7 +15,7 @@ const App = () => {
     JSON.parse(localStorage.getItem("todos")) || []
   );
 
-  const [value, setValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const [filter, setFilter] = useState("all");
 
@@ -33,8 +32,10 @@ const App = () => {
     [todos]
   );
 
+  const todosLength = todosMemo[filter].length;
+
   const onChangeValue = (e) => {
-    setValue(e.target.value);
+    setInputValue(e.target.value);
   };
 
   const createTodo = (title) => {
@@ -52,7 +53,7 @@ const App = () => {
       alert("Добавь, пожалуйста, текст задачи!");
     }
 
-    setValue("");
+    setInputValue("");
   };
 
   const deleteTodo = (id) => {
@@ -101,11 +102,11 @@ const App = () => {
       <div className={styles.todos}>
         <div className={styles.header}>
           <div className={styles.todoCount}>
-            {todosMemo[filter].length > 1
-              ? `${todosMemo[filter].length} items `
-              : `${todosMemo[filter].length} item `}
-            left
+            {todosLength >= 1
+              ? `${todosLength} items left`
+              : `${todosLength} item left`}
           </div>
+
           <div className={styles.headerMain}>
             <FaRegCheckCircle className={styles.headerIcon} />
             <h1 className={styles.headerTitle}>Todo list</h1>
@@ -114,13 +115,14 @@ const App = () => {
 
         <div className={styles.main}>
           <FormTodo
-            value={value}
+            value={inputValue}
             onChangeValue={onChangeValue}
             createTodo={createTodo}
           />
+
           <TodoList
             todosMemo={todosMemo}
-            value={value}
+            value={inputValue}
             onChangeValue={onChangeValue}
             filter={filter}
             deleteTodo={deleteTodo}
