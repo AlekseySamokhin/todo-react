@@ -6,37 +6,51 @@ import { BiPencil } from "react-icons/bi";
 import styles from "./TodoItem.module.css";
 
 const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
+  const [todoValue, setValueTodo] = useState(todo.title);
+
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleToggleEdit = () => setIsEditing(!isEditing);
+  const handleDeleteTodo = () => {
+    deleteTodo(todo.id);
+  };
+
+  const handleCheckTodo = () => {
+    checkTodo(todo.id);
+  };
+
+  const handleEditTodo = () => {
+    editTodo(todo.id, todoValue);
+    setIsEditing(true);
+  };
+
+  const changeInputTodo = (e) => {
+    setValueTodo(e.target.value);
+  };
+
+  const handleBlur = () => {
+    editTodo(todo.id, todoValue);
+    setIsEditing(false);
+  };
 
   const handleEditDone = (event) => {
     if (event.key === "Enter") {
+      handleEditTodo();
       setIsEditing(false);
     }
-  };
-
-  const handleDeleteTodo = (id) => {
-    deleteTodo(id);
-  };
-
-  const handleCheckTodo = (id) => {
-    checkTodo(id);
-  };
-
-  const handleEditTodo = (id, title) => {
-    editTodo(id, title);
   };
 
   return (
     <li className={styles.TodoItem}>
       {!isEditing ? (
-        <div className={styles.TodoItemText} onDoubleClick={handleToggleEdit}>
+        <div
+          className={styles.TodoItemText}
+          onDoubleClick={() => setIsEditing(true)}
+        >
           <input
             className={styles.TodoItemCheckbox}
             type="checkbox"
             checked={todo.completed}
-            onChange={() => handleCheckTodo(todo.id)}
+            onChange={handleCheckTodo}
           />
           <h3 className={styles.TodoItemTitle}>
             {todo.completed ? (
@@ -52,22 +66,18 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
         <input
           type="text"
           className={styles.TodoInput}
-          value={todo.title}
-          onChange={(e) => {
-            handleEditTodo(todo.id, e.target.value);
-          }}
+          value={todoValue}
+          onChange={changeInputTodo}
           onKeyDown={handleEditDone}
+          onBlur={handleBlur}
           autoFocus
         />
       )}
       <div className={styles.TodoItemButtons}>
-        <button className={styles.TodoItemEdit} onClick={handleToggleEdit}>
+        <button className={styles.TodoItemEdit} onClick={handleEditTodo}>
           <BiPencil />
         </button>
-        <button
-          className={styles.TodoItemDelete}
-          onClick={() => handleDeleteTodo(todo.id)}
-        >
+        <button className={styles.TodoItemDelete} onClick={handleDeleteTodo}>
           <FiX />
         </button>
       </div>

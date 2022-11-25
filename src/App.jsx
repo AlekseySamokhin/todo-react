@@ -54,15 +54,19 @@ const App = () => {
   };
 
   const editTodo = (id, title) => {
-    const newTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, title };
-      }
+    if (title.trim() === "") {
+      deleteTodo(id);
+    } else {
+      const newTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, title };
+        }
 
-      return todo;
-    });
+        return todo;
+      });
 
-    setTodos(newTodos);
+      setTodos(newTodos);
+    }
   };
 
   const checkTodo = (id) => {
@@ -109,9 +113,9 @@ const App = () => {
 
         <div className={styles.footer}>
           <FilterButtons
+            memoizedDataTodos={memoizedDataTodos}
             filter={filter}
             setFilter={setFilter}
-            memoizedDataTodos={memoizedDataTodos}
           />
         </div>
       </div>

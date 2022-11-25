@@ -54,9 +54,10 @@
   justify-content: center;
   align-items: center;
   font-size: 24px;
-  border: none;
   color: #fff;
-  background-color: #3167be;
+  border: 2px solid white;
+  border-right: none;
+  background-color: #3d3a3a;
   height: 50px;
   width: 50%;
 }
@@ -68,8 +69,8 @@
   cursor: pointer;
   font-size: 27px;
   color: #fff;
-  border: none;
-  background-color: #dd276d;
+  border: 2px solid white;
+  background-color: #3d3a3a;
   height: 50px;
   width: 50%;
 }
