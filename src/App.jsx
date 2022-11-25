@@ -97,6 +97,13 @@ const App = () => {
     setFilter(filter);
   };
 
+  const clearCompletedTodo = () => {
+    let newTodos = todos.filter((todo) => !todo.completed);
+    setTodos(newTodos);
+  };
+
+  const countCompleted = todos.filter((todo) => todo.completed).length;
+
   return (
     <div className={styles.container}>
       <div className={styles.todos}>
@@ -123,8 +130,10 @@ const App = () => {
           <TodoList
             todosMemo={todosMemo}
             value={inputValue}
-            onChangeValue={onChangeValue}
             filter={filter}
+            countCompleted={countCompleted}
+            clearCompletedTodo={clearCompletedTodo}
+            onChangeValue={onChangeValue}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
             checkTodo={checkTodo}
