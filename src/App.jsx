@@ -16,13 +16,15 @@ const App = () => {
     JSON.parse(localStorage.getItem("todos")) || []
   );
 
+  const [value, setValue] = useState("");
+
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  const memoizedDataTodos = useMemo(
+  const todosMemo = useMemo(
     () => ({
       all: todos,
       active: todos.filter((todo) => !todo.completed),
@@ -30,6 +32,10 @@ const App = () => {
     }),
     [todos]
   );
+
+  const onChangeValue = (e) => {
+    setValue(e.target.value);
+  };
 
   const createTodo = (title) => {
     title = title.trim();
@@ -45,6 +51,8 @@ const App = () => {
     } else {
       alert("Добавь, пожалуйста, текст задачи!");
     }
+
+    setValue("");
   };
 
   const deleteTodo = (id) => {
@@ -84,14 +92,18 @@ const App = () => {
     setTodos(newTodos);
   };
 
+  const checkFilter = (filter) => {
+    setFilter(filter);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.todos}>
         <div className={styles.header}>
           <div className={styles.todoCount}>
-            {memoizedDataTodos[filter].length > 1
-              ? `${memoizedDataTodos[filter].length} items `
-              : `${memoizedDataTodos[filter].length} item `}
+            {todosMemo[filter].length > 1
+              ? `${todosMemo[filter].length} items `
+              : `${todosMemo[filter].length} item `}
             left
           </div>
           <div className={styles.headerMain}>
@@ -101,9 +113,15 @@ const App = () => {
         </div>
 
         <div className={styles.main}>
-          <FormTodo createTodo={createTodo} />
+          <FormTodo
+            value={value}
+            onChangeValue={onChangeValue}
+            createTodo={createTodo}
+          />
           <TodoList
-            memoizedDataTodos={memoizedDataTodos}
+            todosMemo={todosMemo}
+            value={value}
+            onChangeValue={onChangeValue}
             filter={filter}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
@@ -113,9 +131,9 @@ const App = () => {
 
         <div className={styles.footer}>
           <FilterButtons
-            memoizedDataTodos={memoizedDataTodos}
+            todosMemo={todosMemo}
             filter={filter}
-            setFilter={setFilter}
+            checkFilter={checkFilter}
           />
         </div>
       </div>

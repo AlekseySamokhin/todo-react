@@ -1,11 +1,15 @@
 import styles from "./FilterButtons.module.css";
 
-const FilterButtons = ({ filter, setFilter, memoizedDataTodos }) => {
+const FilterButtons = ({ filter, checkFilter, todosMemo }) => {
   const buttonsFilters = [
-    { title: "all", count: memoizedDataTodos.all.length },
-    { title: "active", count: memoizedDataTodos.active.length },
-    { title: "completed", count: memoizedDataTodos.completed.length },
+    { title: "all", count: todosMemo.all.length },
+    { title: "active", count: todosMemo.active.length },
+    { title: "completed", count: todosMemo.completed.length },
   ];
+
+  const handleFilter = () => {
+    checkFilter(filter);
+  };
 
   return (
     <div className={styles.filterTodos}>
@@ -18,7 +22,7 @@ const FilterButtons = ({ filter, setFilter, memoizedDataTodos }) => {
               ? styles.filterButtonActive
               : styles.filterButton
           }
-          onClick={() => setFilter(button.title)}
+          onClick={handleFilter}
         >
           {button.title} {button.count}
         </button>
