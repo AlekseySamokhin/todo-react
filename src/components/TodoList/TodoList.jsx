@@ -14,12 +14,12 @@ const TodoList = ({
   return (
     <div className={styles.todoList}>
       <ul className={styles.todoListSheet}>
-        {todosMemo[filter].map((item) => (
+        {todosMemo[filter].map((todo) => (
           <TodoItem
-            key={item.id}
+            key={todo.id}
             value={value}
             onChangeValue={onChangeValue}
-            todo={item}
+            todo={todo}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
             checkTodo={checkTodo}

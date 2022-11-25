@@ -7,7 +7,7 @@ const FilterButtons = ({ filter, checkFilter, todosMemo }) => {
     { title: "completed", count: todosMemo.completed.length },
   ];
 
-  const handleFilter = () => {
+  const handleFilter = (filter) => {
     checkFilter(filter);
   };
 
@@ -22,7 +22,7 @@ const FilterButtons = ({ filter, checkFilter, todosMemo }) => {
               ? styles.filterButtonActive
               : styles.filterButton
           }
-          onClick={handleFilter}
+          onClick={() => handleFilter(button.title)}
         >
           {button.title} {button.count}
         </button>

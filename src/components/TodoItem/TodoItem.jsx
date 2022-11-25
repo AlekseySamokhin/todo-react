@@ -5,17 +5,14 @@ import { BiPencil } from "react-icons/bi";
 
 import styles from "./TodoItem.module.css";
 
-const TodoItem = ({
-  todo,
-  deleteTodo,
-  editTodo,
-  checkTodo,
-  value,
-  onChangeValue,
-}) => {
-  // const [todoValue, setValueTodo] = useState(todo.title);
-
+const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
+
+  const [value, setValue] = useState(todo.title);
+
+  const onChangeValue = (e) => {
+    setValue(e.target.value);
+  };
 
   const handleDeleteTodo = () => {
     deleteTodo(todo.id);
@@ -29,10 +26,6 @@ const TodoItem = ({
     editTodo(todo.id, value);
     setIsEditing(true);
   };
-
-  // const changeInputTodo = (e) => {
-  //   setValueTodo(e.target.value);
-  // };
 
   const handleBlur = () => {
     editTodo(todo.id, value);
@@ -81,11 +74,7 @@ const TodoItem = ({
         />
       )}
       <div className={styles.TodoItemButtons}>
-        <button
-          className={styles.TodoItemEdit}
-          onClick={handleEditTodo}
-          // onKeyDown={() => setIsEditing(true)}
-        >
+        <button className={styles.TodoItemEdit} onClick={handleEditTodo}>
           <BiPencil />
         </button>
         <button className={styles.TodoItemDelete} onClick={handleDeleteTodo}>
