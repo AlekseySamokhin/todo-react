@@ -1,10 +1,10 @@
 import styles from "./FilterButtons.module.css";
 
-const FilterButtons = ({ filter, selectFilter, todosMemo }) => {
+const FilterButtons = ({ filter, selectFilter, memoizedTodos }) => {
   const buttonsFilters = [
-    { title: "all", count: todosMemo.all.length },
-    { title: "active", count: todosMemo.active.length },
-    { title: "completed", count: todosMemo.completed.length },
+    { title: "all", count: memoizedTodos.all.length },
+    { title: "active", count: memoizedTodos.active.length },
+    { title: "completed", count: memoizedTodos.completed.length },
   ];
 
   const handleFilter = (filter) => {

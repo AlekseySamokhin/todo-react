@@ -8,10 +8,10 @@ import styles from "./TodoItem.module.css";
 const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
 
-  const [value, setValue] = useState(todo.title);
+  const [input, setInput] = useState(todo.title);
 
-  const onChangeValue = (e) => {
-    setValue(e.target.value);
+  const onChangeInput = (e) => {
+    setInput(e.target.value);
   };
 
   const handleDeleteTodo = () => {
@@ -23,12 +23,12 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
   };
 
   const handleEditTodo = () => {
-    editTodo(todo.id, value);
+    editTodo(todo.id, input);
     setIsEditing(true);
   };
 
   const handleBlur = () => {
-    editTodo(todo.id, value);
+    editTodo(todo.id, input);
     setIsEditing(false);
   };
 
@@ -66,8 +66,8 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
         <input
           type="text"
           className={styles.TodoInput}
-          value={value}
-          onChange={onChangeValue}
+          value={input}
+          onChange={onChangeInput}
           onKeyDown={handleEditDone}
           onBlur={handleBlur}
           autoFocus

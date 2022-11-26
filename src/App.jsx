@@ -17,15 +17,13 @@ const App = () => {
   
   const [isDoneAll, setIsDoneAll] = useState(todos.some(todo => todo.completed));
 
-  const [inputValue, setInputValue] = useState("");
-
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  const todosMemo = useMemo(
+  const memoizedTodos = useMemo(
     () => ({
       all: todos,
       active: todos.filter((todo) => !todo.completed),
@@ -34,19 +32,11 @@ const App = () => {
     [todos]
   );
 
-  
-
-  const todosLength = todosMemo[filter].length;
-
-  const onChangeValue = (e) => {
-    setInputValue(e.target.value);
-  };
-
   const createTodo = (title) => {
     title = title.trim();
 
     if (title.length > 25) {
-      alert("Напишите текст задачи покороче!");
+      alert("Напишите текст задачи покороче!"); // TODO: add block
     } else if (title !== "") {
       const newTodo = {
         title,
@@ -56,10 +46,8 @@ const App = () => {
 
       setTodos([...todos, newTodo]);
     } else {
-      alert("Добавь, пожалуйста, текст задачи!"); 
+      alert("Добавь, пожалуйста, текст задачи!"); // TODO: add block
     }
-
-    setInputValue("");
   };
 
   const deleteTodo = (id) => {
@@ -120,17 +108,17 @@ const App = () => {
     setTodos(newTodos);
   };
 
-  const countCompleted = todos.filter((todo) => todo.completed).length;
+  const lengthFilterTodos = memoizedTodos[filter].length;
+
+  const countTodosCompleted = todos.filter((todo) => todo.completed).length;
+
+  const countTodos = lengthFilterTodos >= 1 ? `${lengthFilterTodos} items` : `${lengthFilterTodos} item`;
 
   return (
     <div className={styles.container}>
-      <div className={styles.todos}>
+      <div className={styles.todos}> 
         <div className={styles.header}>
-          <div className={styles.todoCount}>
-            {todosLength >= 1
-              ? `${todosLength} items left`
-              : `${todosLength} item left`}
-          </div>
+          <div className={styles.todoCount}>{countTodos} left</div>
 
           <div className={styles.headerMain}>
             <FaRegCheckCircle className={styles.headerIcon} />
@@ -140,21 +128,17 @@ const App = () => {
 
         <div className={styles.main}>
           <FormTodo
-            value={inputValue}
+            memoizedTodos={memoizedTodos}
             isDoneAll={isDoneAll}
-            todos={todos}
-            onChangeValue={onChangeValue}
             checkTodoAll={checkTodoAll}
             createTodo={createTodo}
           />
 
           <TodoList
-            todosMemo={todosMemo}
-            value={inputValue}
+            memoizedTodos={memoizedTodos}
             filter={filter}
-            countCompleted={countCompleted}
+            countTodoCompleted={countTodosCompleted}
             clearCompletedTodo={clearCompletedTodo}
-            onChangeValue={onChangeValue}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
             checkTodo={checkTodo}
@@ -163,7 +147,7 @@ const App = () => {
 
         <div className={styles.footer}>
           <FilterButtons
-            todosMemo={todosMemo}
+            memoizedTodos={memoizedTodos}
             filter={filter}
             selectFilter={selectFilter}
           />

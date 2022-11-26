@@ -3,7 +3,7 @@ import TodoItem from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
 const TodoList = ({
-  todosMemo,
+  memoizedTodos,
   filter,
   deleteTodo,
   editTodo,
@@ -18,7 +18,7 @@ const TodoList = ({
   return (
     <div className={styles.todoList}>
       <ul className={styles.todoListSheet}>
-        {todosMemo[filter].map((todo) => (
+        {memoizedTodos[filter].map((todo) => (
           <TodoItem
             key={todo.id}
             todo={todo}
@@ -28,7 +28,7 @@ const TodoList = ({
           />
         ))}
       </ul>
-      {todosMemo[filter].length === 0 && (
+      {memoizedTodos[filter].length === 0 && (
         <h3 className={styles.todoListEmpty}>
           {filter} todos for today is empty...
         </h3>
