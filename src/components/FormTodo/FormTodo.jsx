@@ -3,7 +3,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import styles from "./FormTodo.module.css";
 
-const InputTask = ({ value, onChangeValue, createTodo, checkTodoAll, isDoneAll }) => {
+const InputTask = ({ value, onChangeValue, createTodo, checkTodoAll, isDoneAll, todos }) => {
   const handleAddTodo = (e) => {
     e.preventDefault();
     createTodo(value);
@@ -16,7 +16,9 @@ const InputTask = ({ value, onChangeValue, createTodo, checkTodoAll, isDoneAll }
   return (
     <form className={styles.formTodo}>
       <div className={styles.checkAll} onClick={handleCheckAllTodo}>
-        <AiOutlineCheckCircle className={isDoneAll ? styles.checkAllIcon : styles.checkAllIconActive}/>
+        {todos.length !== 0 &&
+          (<AiOutlineCheckCircle className={isDoneAll ? styles.checkAllIcon : styles.checkAllIconActive}/>)
+        }
       </div>
       <input
         className={styles.formTodoInput}

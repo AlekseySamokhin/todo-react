@@ -138,6 +138,7 @@ const App = () => {
           <FormTodo
             value={inputValue}
             isDoneAll={isDoneAll}
+            todos={todos}
             onChangeValue={onChangeValue}
             checkTodoAll={checkTodoAll}
             createTodo={createTodo}
