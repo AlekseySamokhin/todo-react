@@ -137,11 +137,11 @@ const App = () => {
           <TodoList
             memoizedTodos={memoizedTodos}
             filter={filter}
-            countTodoCompleted={countTodosCompleted}
-            clearCompletedTodo={clearCompletedTodo}
+            countTodosCompleted={countTodosCompleted}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
             checkTodo={checkTodo}
+            clearCompletedTodo={clearCompletedTodo}
           />
         </div>
 

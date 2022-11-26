@@ -8,7 +8,7 @@ const TodoList = ({
   deleteTodo,
   editTodo,
   checkTodo,
-  countCompleted,
+  countTodosCompleted,
   clearCompletedTodo,
 }) => {
   const handleClearCompleted = () => {
@@ -33,7 +33,7 @@ const TodoList = ({
           {filter} todos for today is empty...
         </h3>
       )}
-      {countCompleted !== 0 && (
+      {countTodosCompleted !== 0 && (
         <button
           className={styles.clearCompletedButton}
           onClick={handleClearCompleted}

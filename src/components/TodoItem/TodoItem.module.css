@@ -23,8 +23,11 @@
 .TodoInput {
   background-color: #4d4646;
   height: 100%;
-  border: 2.5px solid #000;
+  border: 2.5px solid #fff;
   font-size: 25px;
+  padding-left: 15px;
+  margin-left: 25px;
+  width: 358px;
 }
 
 .TodoItemCheckbox {

@@ -24,7 +24,6 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
 
   const handleEditTodo = () => {
     editTodo(todo.id, input);
-    setIsEditing(true);
   };
 
   const handleBlur = () => {
@@ -74,7 +73,7 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
         />
       )}
       <div className={styles.TodoItemButtons}>
-        <button className={styles.TodoItemEdit} onClick={handleEditTodo}>
+        <button className={styles.TodoItemEdit} onClick={() => setIsEditing(true)}>
           <BiPencil />
         </button>
         <button className={styles.TodoItemDelete} onClick={handleDeleteTodo}>

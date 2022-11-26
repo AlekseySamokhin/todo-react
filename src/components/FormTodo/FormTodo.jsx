@@ -25,8 +25,9 @@ const InputTask = ({ createTodo, checkTodoAll, isDoneAll, memoizedTodos }) => {
   return (
     <form className={styles.formTodo}>
       <div className={styles.checkAll} onClick={handleCheckAllTodo}>
-        {memoizedTodos.all.length !== 0 &&
-          (<AiOutlineCheckCircle className={isDoneAll ? styles.checkAllIcon : styles.checkAllIconActive}/>)
+        {
+          memoizedTodos.all.length !== 0 && 
+          (<AiOutlineCheckCircle className={isDoneAll ? styles.checkAllIcon : styles.checkAllIconActive} />)
         }
       </div>
       <input
