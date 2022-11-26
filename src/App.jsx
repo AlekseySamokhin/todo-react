@@ -15,7 +15,7 @@ const App = () => {
     JSON.parse(localStorage.getItem("todos")) || []
   );
   
-  const [isDoneAll, setIsDoneAll] = useState(false);
+  const [isDoneAll, setIsDoneAll] = useState(todos.some(todo => todo.completed));
 
   const [inputValue, setInputValue] = useState("");
 
@@ -34,6 +34,8 @@ const App = () => {
     [todos]
   );
 
+  
+
   const todosLength = todosMemo[filter].length;
 
   const onChangeValue = (e) => {
@@ -43,7 +45,9 @@ const App = () => {
   const createTodo = (title) => {
     title = title.trim();
 
-    if (title !== "") {
+    if (title.length > 25) {
+      alert("Напишите текст задачи покороче!");
+    } else if (title !== "") {
       const newTodo = {
         title,
         completed: false,
@@ -52,7 +56,7 @@ const App = () => {
 
       setTodos([...todos, newTodo]);
     } else {
-      alert("Добавь, пожалуйста, текст задачи!");
+      alert("Добавь, пожалуйста, текст задачи!"); 
     }
 
     setInputValue("");
@@ -107,7 +111,7 @@ const App = () => {
     setIsDoneAll(!isDoneAll);
   }; 
 
-  const checkFilter = (filter) => {
+  const selectFilter = (filter) => {
     setFilter(filter);
   };
 
@@ -161,7 +165,7 @@ const App = () => {
           <FilterButtons
             todosMemo={todosMemo}
             filter={filter}
-            checkFilter={checkFilter}
+            selectFilter={selectFilter}
           />
         </div>
       </div>

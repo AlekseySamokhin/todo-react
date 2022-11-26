@@ -1,6 +1,6 @@
 import styles from "./FilterButtons.module.css";
 
-const FilterButtons = ({ filter, checkFilter, todosMemo }) => {
+const FilterButtons = ({ filter, selectFilter, todosMemo }) => {
   const buttonsFilters = [
     { title: "all", count: todosMemo.all.length },
     { title: "active", count: todosMemo.active.length },
@@ -8,7 +8,7 @@ const FilterButtons = ({ filter, checkFilter, todosMemo }) => {
   ];
 
   const handleFilter = (filter) => {
-    checkFilter(filter);
+    selectFilter(filter);
   };
 
   return (
