@@ -14,6 +14,8 @@ const App = () => {
   const [todos, setTodos] = useState(
     JSON.parse(localStorage.getItem("todos")) || []
   );
+  
+  const [isDoneAll, setIsDoneAll] = useState(false);
 
   const [inputValue, setInputValue] = useState("");
 
@@ -93,6 +95,18 @@ const App = () => {
     setTodos(newTodos);
   };
 
+  const checkTodoAll = () => {
+    const newTodos = todos.map((todo) => {
+      return {
+        ...todo,
+        completed: !isDoneAll,
+      };
+    });
+
+    setTodos(newTodos);
+    setIsDoneAll(!isDoneAll);
+  }; 
+
   const checkFilter = (filter) => {
     setFilter(filter);
   };
@@ -123,7 +137,9 @@ const App = () => {
         <div className={styles.main}>
           <FormTodo
             value={inputValue}
+            isDoneAll={isDoneAll}
             onChangeValue={onChangeValue}
+            checkTodoAll={checkTodoAll}
             createTodo={createTodo}
           />
 
