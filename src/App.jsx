@@ -123,7 +123,7 @@ const App = () => {
             <h1 className={styles.headerTitle}>Todo list</h1>
           </div>
 
-          <div className={styles.todoCount}>{countTodos} left</div>
+          <div className={styles.headerCount}>{countTodos} left</div>
         </div>
 
         <div className={styles.main}>
