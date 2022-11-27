@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 import { useState, useEffect, useMemo } from "react";
 
 import FormTodo from "./components/FormTodo";
@@ -9,6 +7,8 @@ import FilterButtons from "./components/FilterButtons";
 import { FaRegCheckCircle } from "react-icons/fa";
 
 import styles from "./App.module.css";
+
+import { v4 as uuidv4 } from "uuid";
 
 const App = () => {
   const [todos, setTodos] = useState(

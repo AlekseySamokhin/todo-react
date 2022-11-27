@@ -39,21 +39,22 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
   };
 
   return (
-    <li className={styles.TodoItem}>
+    <li className={styles.todoItem}>
       {!isEditing ? (
         <div
-          className={styles.TodoItemText}
+          className={styles.todoItemText}
           onDoubleClick={() => setIsEditing(true)}
         >
           <input
-            className={styles.TodoItemCheckbox}
+            className={styles.todoItemCheckbox}
             type="checkbox"
             checked={todo.completed}
             onChange={handleCheckTodo}
           />
-          <h3 className={styles.TodoItemTitle}>
+
+          <h3 className={styles.todoItemTitle}>
             {todo.completed ? (
-              <span style={{ textDecoration: "line-through", color: "#000" }}>
+              <span className={styles.todoItemDone}>
                 {todo.title}
               </span>
             ) : (
@@ -64,7 +65,7 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
       ) : (
         <input
           type="text"
-          className={styles.TodoInput}
+          className={styles.todoInput}
           value={input}
           onChange={onChangeInput}
           onKeyDown={handleEditDone}
@@ -72,11 +73,12 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
           autoFocus
         />
       )}
-      <div className={styles.TodoItemButtons}>
-        <button className={styles.TodoItemEdit} onClick={() => setIsEditing(true)}>
+      <div className={styles.todoItemButtons}>
+        <button className={styles.todoItemEdit} onClick={() => setIsEditing(true)}>
           <BiPencil />
         </button>
-        <button className={styles.TodoItemDelete} onClick={handleDeleteTodo}>
+        
+        <button className={styles.todoItemDelete} onClick={handleDeleteTodo}>
           <FiX />
         </button>
       </div>

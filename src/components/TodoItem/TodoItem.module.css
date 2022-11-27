@@ -1,4 +1,4 @@
-.TodoItem {
+.todoItem {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -9,18 +9,18 @@
   padding-left: 16px;
 }
 
-.TodoItem:not(:first-child) {
+.todoItem:not(:first-child) {
   margin-top: 20px;
 }
 
-.TodoItemText {
+.todoItemText {
   display: flex;
   align-items: center;
   width: 77%;
   display: flex;
 }
 
-.TodoInput {
+.todoInput {
   background-color: #4d4646;
   height: 100%;
   border: 2.5px solid #fff;
@@ -30,16 +30,16 @@
   width: 358px;
 }
 
-.TodoItemCheckbox {
+.todoItemCheckbox {
   height: 22.5px;
   width: 22.5px;
 }
 
-.TodoItemTitle {
+.todoItemTitle {
   padding-left: 20px;
 }
 
-.TodoItemButtons {
+.todoItemButtons {
   color: white;
   display: flex;
   justify-content: center;
@@ -47,11 +47,11 @@
   width: 100px;
 }
 
-.TodoItemIcon {
+.todoItemIcon {
   color: #fff;
 }
 
-.TodoItemEdit {
+.todoItemEdit {
   display: flex;
   cursor: pointer;
   justify-content: center;
@@ -65,7 +65,7 @@
   width: 50%;
 }
 
-.TodoItemDelete {
+.todoItemDelete {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,4 +76,9 @@
   background-color: #3d3a3a;
   height: 50px;
   width: 50%;
+}
+
+.todoItemDone {
+  text-decoration: line-through;
+  color: #000;
 }

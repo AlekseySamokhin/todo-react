@@ -14,6 +14,7 @@ const InputTask = ({ createTodo, checkTodoAll, isDoneAll, memoizedTodos }) => {
 
   const handleAddTodo = (e) => {
     e.preventDefault();
+    
     createTodo(input);
     setInput("");
   };
@@ -23,13 +24,14 @@ const InputTask = ({ createTodo, checkTodoAll, isDoneAll, memoizedTodos }) => {
   }
 
   return (
-    <form className={styles.formTodo}>
-      <div className={styles.checkAll} onClick={handleCheckAllTodo}>
-        {
-          memoizedTodos.all.length !== 0 && 
-          (<AiOutlineCheckCircle className={isDoneAll ? styles.checkAllIcon : styles.checkAllIconActive} />)
-        }
-      </div>
+    <form className={styles.formTodo} onSubmit={handleAddTodo}>
+      {
+        memoizedTodos.all.length !== 0 && (
+          <div className={styles.checkAll} onClick={handleCheckAllTodo}>
+            <AiOutlineCheckCircle className={isDoneAll ? styles.checkAllIcon : styles.checkAllIconActive} />
+          </div> )
+      }
+
       <input
         className={styles.formTodoInput}
         placeholder="What needs to be done?"
@@ -37,7 +39,8 @@ const InputTask = ({ createTodo, checkTodoAll, isDoneAll, memoizedTodos }) => {
         value={input}
         onChange={onInputChange}
       />
-      <button className={styles.formTodoButton} onClick={handleAddTodo}>
+
+      <button className={styles.formTodoButton}>
         <AiOutlinePlusCircle />
       </button>
     </form>
