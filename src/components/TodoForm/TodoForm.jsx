@@ -3,9 +3,9 @@ import { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 
-import styles from "./FormTodo.module.css";
+import styles from "./TodoForm.module.css";
 
-const InputTask = ({ createTodo, checkTodoAll, isDoneAll, memoizedTodos }) => {
+const TodoForm = ({ createTodo, checkTodoAll, isDoneAll, memoizedTodos }) => {
   const [input, setInput] = useState("");
 
   const onInputChange = (e) => {
@@ -47,4 +47,4 @@ const InputTask = ({ createTodo, checkTodoAll, isDoneAll, memoizedTodos }) => {
   );
 };
 
-export default InputTask;
+export default TodoForm;

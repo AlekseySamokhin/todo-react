@@ -18,7 +18,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  flex-direction: column-reverse;
+  flex-direction: column;
   gap: 25px;
   align-items: center;
   padding: 25px 0;

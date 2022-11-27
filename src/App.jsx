@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 
-import FormTodo from "./components/FormTodo";
+import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import FilterButtons from "./components/FilterButtons";
 
@@ -118,16 +118,16 @@ const App = () => {
     <div className={styles.container}>
       <div className={styles.todos}> 
         <div className={styles.header}>
-          <div className={styles.todoCount}>{countTodos} left</div>
-
           <div className={styles.headerMain}>
             <FaRegCheckCircle className={styles.headerIcon} />
             <h1 className={styles.headerTitle}>Todo list</h1>
           </div>
+
+          <div className={styles.todoCount}>{countTodos} left</div>
         </div>
 
         <div className={styles.main}>
-          <FormTodo
+          <TodoForm
             memoizedTodos={memoizedTodos}
             isDoneAll={isDoneAll}
             checkTodoAll={checkTodoAll}
