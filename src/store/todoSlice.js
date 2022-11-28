@@ -1,27 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const todosSlice = createSlice({
+export const todoSlice = createSlice({
   name: "todos",
   initialState: {
     todoList: JSON.parse(localStorage.getItem("todos")) || [],
-    isDoneAll: false,
+    isCompletedAll: false,
     filter: "all",
   },
   reducers: {
-    // Done
-    addTodo: (state, action) => {
+    todoAdded: (state, action) => {
       state.todoList.push(action.payload);
     },
 
-    // Done
-    removeTodo: (state, action) => {
+    todoDeleted: (state, action) => {
       state.todoList = state.todoList.filter(
         (todo) => todo.id !== action.payload
       );
     },
 
-    // Done
-    changeTodo: (state, action) => {
+    todoEdited: (state, action) => {
       for (let todo of state.todoList) {
         if (todo.id === action.payload.id) {
           todo.title = action.payload.title;
@@ -29,8 +26,7 @@ export const todosSlice = createSlice({
       }
     },
 
-    // Done
-    toggleTodo: (state, action) => {
+    todoCompleted: (state, action) => {
       for (let todo of state.todoList) {
         if (todo.id === action.payload) {
           todo.completed = !todo.completed;
@@ -38,21 +34,19 @@ export const todosSlice = createSlice({
       }
     },
 
-    // Done
-    toggleTodoAll: (state) => {
+    allCompleted: (state) => {
       for (let todo of state.todoList) {
-        todo.completed = !state.isDoneAll;
+        todo.isCompletedAll = !state.isCompletedAll;
       }
 
-      state.isDoneAll = !state.isDoneAll;
+      state.isCompletedAll = !state.isCompletedAll;
     },
 
-    // Done
-    deleteCompletedTodo: (state) => {
+    compeletedCleared: (state) => {
       state.todoList = state.todoList.filter((todo) => !todo.completed);
     },
 
-    selectShowedFiltered: (state, action) => {
+    filterSelected: (state, action) => {
       state.filter = action.payload;
     },
   },
@@ -60,13 +54,13 @@ export const todosSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  addTodo,
-  removeTodo,
-  changeTodo,
-  toggleTodo,
-  toggleTodoAll,
-  deleteCompletedTodo,
-  selectShowedFiltered,
-} = todosSlice.actions;
+  todoAdded,
+  todoDeleted,
+  todoEdited,
+  todoCompleted,
+  allCompleted,
+  compeletedCleared,
+  filterSelected,
+} = todoSlice.actions;
 
-export default todosSlice.reducer;
+export default todoSlice.reducer;

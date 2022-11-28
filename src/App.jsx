@@ -1,39 +1,38 @@
 import React, { useEffect } from "react";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { v4 as uuidv4 } from "uuid";
+
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import FilterButtons from "./components/FilterButtons";
 
-import { getShowTodo } from "./store/selector";
-
-import { useSelector, useDispatch } from "react-redux";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 import {
-  addTodo,
-  removeTodo,
-  changeTodo,
-  toggleTodo,
-  toggleTodoAll,
-  deleteCompletedTodo,
-  selectShowedFiltered,
+  todoAdded,
+  todoDeleted,
+  todoEdited,
+  todoCompleted,
+  allCompleted,
+  compeletedCleared,
+  filterSelected,
 } from "./store/todoSlice";
 
-import { FaRegCheckCircle } from "react-icons/fa";
+import { getFilteredTodoList } from "./store/selector";
 
 import styles from "./App.module.css";
 
-import { v4 as uuidv4 } from "uuid";
-
 const App = () => {
-  const getTodosList = useSelector(getShowTodo);
+  const todos = useSelector(getFilteredTodoList);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(getTodosList));
-  }, [getTodosList]);
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const dispatch = useDispatch();
 
-  // Done
   const createTodo = (title) => {
     title = title.trim();
 
@@ -46,51 +45,42 @@ const App = () => {
         id: uuidv4(),
       };
 
-      dispatch(addTodo(newTodo));
+      dispatch(todoAdded(newTodo));
     } else {
       alert("Добавь, пожалуйста, текст задачи!"); // TODO: add block
     }
   };
 
-  // Done
   const deleteTodo = (id) => {
-    dispatch(removeTodo(id));
+    dispatch(todoDeleted(id));
   };
 
-  // Done
   const editTodo = (id, title) => {
     if (title.trim() === "") {
       deleteTodo(id);
     } else {
-      dispatch(changeTodo({ id, title }));
+      dispatch(todoEdited({ id, title }));
     }
   };
 
-  // Done
-  const checkTodo = (id) => {
-    dispatch(toggleTodo(id));
+  const doneTodo = (id) => {
+    dispatch(todoCompleted(id));
   };
 
-  // Done
-  const checkTodoAll = () => {
-    dispatch(toggleTodoAll());
+  const doneTodoAll = () => {
+    dispatch(allCompleted());
   };
 
-  // Done
-  const selectFilter = (filter) => {
-    dispatch(selectShowedFiltered(filter));
+  const checkFilter = (filter) => {
+    dispatch(filterSelected(filter));
   };
 
   const clearCompletedTodo = () => {
-    dispatch(deleteCompletedTodo());
+    dispatch(compeletedCleared());
   };
 
-  const lengthFilterTodos = getTodosList.length;
-
   const countTodos =
-    lengthFilterTodos >= 1
-      ? `${lengthFilterTodos} items`
-      : `${lengthFilterTodos} item`;
+    todos.length >= 1 ? `${todos.length} items` : `${todos.length} item`;
 
   return (
     <div className={styles.container}>
@@ -98,25 +88,26 @@ const App = () => {
         <div className={styles.header}>
           <div className={styles.headerMain}>
             <FaRegCheckCircle className={styles.headerIcon} />
-            <h1 className={styles.headerTitle}>Todo list</h1>
+
+            <h1 className={styles.headerTitle}>Todo List</h1>
           </div>
 
           <div className={styles.headerCount}>{countTodos} left</div>
         </div>
 
         <div className={styles.main}>
-          <TodoForm checkTodoAll={checkTodoAll} createTodo={createTodo} />
+          <TodoForm doneTodoAll={doneTodoAll} createTodo={createTodo} />
 
           <TodoList
             deleteTodo={deleteTodo}
             editTodo={editTodo}
-            checkTodo={checkTodo}
+            doneTodo={doneTodo}
             clearCompletedTodo={clearCompletedTodo}
           />
         </div>
 
         <div className={styles.footer}>
-          <FilterButtons selectFilter={selectFilter} />
+          <FilterButtons checkFilter={checkFilter} />
         </div>
       </div>
     </div>

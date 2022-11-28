@@ -4,7 +4,7 @@ import TodoItem from "../TodoItem/TodoItem";
 
 import styles from "./TodoList.module.css";
 
-import { getShowTodo } from "../../store/selector";
+import { getFilteredTodoList } from "../../store/selector";
 
 import { useSelector } from "react-redux";
 
@@ -12,10 +12,10 @@ const TodoList = ({
   filter,
   deleteTodo,
   editTodo,
-  checkTodo,
+  doneTodo,
   clearCompletedTodo,
 }) => {
-  const todoList = useSelector(getShowTodo);
+  const todoList = useSelector(getFilteredTodoList);
 
   const lengthCompletedTodos = useMemo(
     () => todoList.filter((todo) => todo.completed).length,
@@ -35,7 +35,7 @@ const TodoList = ({
             todo={todo}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
-            checkTodo={checkTodo}
+            doneTodo={doneTodo}
           />
         ))}
       </ul>

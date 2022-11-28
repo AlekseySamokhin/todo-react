@@ -4,14 +4,14 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import { useSelector } from "react-redux";
-import { getShowTodo } from "../../store/selector";
+import { getFilteredTodoList } from "../../store/selector";
 
 import styles from "./TodoForm.module.css";
 
-const TodoForm = ({ createTodo, checkTodoAll }) => {
+const TodoForm = ({ createTodo, doneTodoAll }) => {
   const isDoneAll = useSelector((state) => state.todos.isDoneAll);
 
-  const getTodosList = useSelector(getShowTodo);
+  const todos = useSelector(getFilteredTodoList);
 
   const [input, setInput] = useState("");
 
@@ -23,16 +23,17 @@ const TodoForm = ({ createTodo, checkTodoAll }) => {
     e.preventDefault();
 
     createTodo(input);
+
     setInput("");
   };
 
   const handleCheckAllTodo = (e) => {
-    checkTodoAll();
+    doneTodoAll();
   };
 
   return (
     <form className={styles.formTodo} onSubmit={handleAddTodo}>
-      {getTodosList.length !== 0 && (
+      {todos.length !== 0 && (
         <div className={styles.checkAll} onClick={handleCheckAllTodo}>
           <AiOutlineCheckCircle
             className={

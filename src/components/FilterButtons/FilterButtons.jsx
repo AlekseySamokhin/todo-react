@@ -4,24 +4,24 @@ import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./FilterButtons.module.css";
 
-const FilterButtons = ({ filter, selectFilter }) => {
-  const showFiltered = useSelector((state) => state.todos.filter);
+const FilterButtons = ({ checkFilter }) => {
+  const todos = useSelector((state) => state.todos.todoList);
 
-  const todoList = useSelector((state) => state.todos.todoList);
-
-  const memoizedTodos = useMemo(
+  const lengthFilteredTodos = useMemo(
     () => ({
-      all: todoList,
-      active: todoList.filter((todo) => !todo.completed),
-      completed: todoList.filter((todo) => todo.completed),
+      all: todos.length,
+      active: todos.filter((todo) => !todo.completed).length,
+      completed: todos.filter((todo) => todo.completed).length,
     }),
-    [todoList]
+    [todos]
   );
 
   const dispatch = useDispatch();
 
-  const handleFilter = (filter) => {
-    dispatch(selectFilter(filter));
+  const currentFilter = useSelector((state) => state.todos.filter);
+
+  const handleChangeFilter = (filter) => {
+    dispatch(checkFilter(filter));
   };
 
   return (
@@ -29,35 +29,35 @@ const FilterButtons = ({ filter, selectFilter }) => {
       <button
         type="button"
         className={
-          showFiltered === "all"
+          currentFilter === "all"
             ? styles.filterButtonActive
             : styles.filterButton
         }
-        onClick={() => handleFilter("all")}
+        onClick={() => handleChangeFilter("all")}
       >
-        All {memoizedTodos.all.length}
+        All {lengthFilteredTodos.all}
       </button>
       <button
         type="button"
         className={
-          showFiltered === "active"
+          currentFilter === "active"
             ? styles.filterButtonActive
             : styles.filterButton
         }
-        onClick={() => handleFilter("active")}
+        onClick={() => handleChangeFilter("active")}
       >
-        Active {memoizedTodos.active.length}
+        Active {lengthFilteredTodos.active}
       </button>
       <button
         type="button"
         className={
-          showFiltered === "completed"
+          currentFilter === "completed"
             ? styles.filterButtonActive
             : styles.filterButton
         }
-        onClick={() => handleFilter("completed")}
+        onClick={() => handleChangeFilter("completed")}
       >
-        Completed {memoizedTodos.completed.length}
+        Completed {lengthFilteredTodos.completed}
       </button>
     </div>
   );

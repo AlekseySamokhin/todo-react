@@ -5,7 +5,7 @@ import { BiPencil } from "react-icons/bi";
 
 import styles from "./TodoItem.module.css";
 
-const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
+const TodoItem = ({ todo, deleteTodo, editTodo, doneTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [input, setInput] = useState(todo.title);
@@ -19,7 +19,7 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
   };
 
   const handleCheckTodo = () => {
-    checkTodo(todo.id);
+    doneTodo(todo.id);
   };
 
   const handleEditTodo = () => {
