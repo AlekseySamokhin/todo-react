@@ -1,8 +1,22 @@
-import { useState, useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import FilterButtons from "./components/FilterButtons";
+
+import { getShowTodo } from "./store/selector";
+
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  addTodo,
+  removeTodo,
+  changeTodo,
+  toggleTodo,
+  toggleTodoAll,
+  deleteCompletedTodo,
+  selectShowedFiltered,
+} from "./store/todoSlice";
 
 import { FaRegCheckCircle } from "react-icons/fa";
 
@@ -11,27 +25,15 @@ import styles from "./App.module.css";
 import { v4 as uuidv4 } from "uuid";
 
 const App = () => {
-  const [todos, setTodos] = useState(
-    JSON.parse(localStorage.getItem("todos")) || []
-  );
-  
-  const [isDoneAll, setIsDoneAll] = useState(todos.some(todo => todo.completed));
-
-  const [filter, setFilter] = useState("all");
+  const getTodosList = useSelector(getShowTodo);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    localStorage.setItem("todos", JSON.stringify(getTodosList));
+  }, [getTodosList]);
 
-  const memoizedTodos = useMemo(
-    () => ({
-      all: todos,
-      active: todos.filter((todo) => !todo.completed),
-      completed: todos.filter((todo) => todo.completed),
-    }),
-    [todos]
-  );
+  const dispatch = useDispatch();
 
+  // Done
   const createTodo = (title) => {
     title = title.trim();
 
@@ -44,79 +46,55 @@ const App = () => {
         id: uuidv4(),
       };
 
-      setTodos([...todos, newTodo]);
+      dispatch(addTodo(newTodo));
     } else {
       alert("Добавь, пожалуйста, текст задачи!"); // TODO: add block
     }
   };
 
+  // Done
   const deleteTodo = (id) => {
-    const newTodos = todos.filter((todo) => todo.id !== id);
-
-    setTodos(newTodos);
+    dispatch(removeTodo(id));
   };
 
+  // Done
   const editTodo = (id, title) => {
     if (title.trim() === "") {
       deleteTodo(id);
     } else {
-      const newTodos = todos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, title };
-        }
-
-        return todo;
-      });
-
-      setTodos(newTodos);
+      dispatch(changeTodo({ id, title }));
     }
   };
 
+  // Done
   const checkTodo = (id) => {
-    const newTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      }
-
-      return todo;
-    });
-
-    setTodos(newTodos);
+    dispatch(toggleTodo(id));
   };
 
+  // Done
   const checkTodoAll = () => {
-    const newTodos = todos.map((todo) => {
-      return {
-        ...todo,
-        completed: !isDoneAll,
-      };
-    });
+    dispatch(toggleTodoAll());
+  };
 
-    setTodos(newTodos);
-    setIsDoneAll(!isDoneAll);
-  }; 
-
+  // Done
   const selectFilter = (filter) => {
-    setFilter(filter);
+    dispatch(selectShowedFiltered(filter));
   };
 
   const clearCompletedTodo = () => {
-    let newTodos = todos.filter((todo) => !todo.completed);
-    setTodos(newTodos);
+    dispatch(deleteCompletedTodo());
   };
 
-  const lengthFilterTodos = memoizedTodos[filter].length;
+  const lengthFilterTodos = getTodosList.length;
 
-  const countTodosCompleted = todos.filter((todo) => todo.completed).length;
-
-  const countTodos = lengthFilterTodos >= 1 ? `${lengthFilterTodos} items` : `${lengthFilterTodos} item`;
+  const countTodos =
+    lengthFilterTodos >= 1
+      ? `${lengthFilterTodos} items`
+      : `${lengthFilterTodos} item`;
 
   return (
     <div className={styles.container}>
-      <div className={styles.todos}> 
+      <div className={styles.todos}>
         <div className={styles.header}>
           <div className={styles.headerMain}>
             <FaRegCheckCircle className={styles.headerIcon} />
@@ -127,17 +105,9 @@ const App = () => {
         </div>
 
         <div className={styles.main}>
-          <TodoForm
-            memoizedTodos={memoizedTodos}
-            isDoneAll={isDoneAll}
-            checkTodoAll={checkTodoAll}
-            createTodo={createTodo}
-          />
+          <TodoForm checkTodoAll={checkTodoAll} createTodo={createTodo} />
 
           <TodoList
-            memoizedTodos={memoizedTodos}
-            filter={filter}
-            countTodosCompleted={countTodosCompleted}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
             checkTodo={checkTodo}
@@ -146,11 +116,7 @@ const App = () => {
         </div>
 
         <div className={styles.footer}>
-          <FilterButtons
-            memoizedTodos={memoizedTodos}
-            filter={filter}
-            selectFilter={selectFilter}
-          />
+          <FilterButtons selectFilter={selectFilter} />
         </div>
       </div>
     </div>

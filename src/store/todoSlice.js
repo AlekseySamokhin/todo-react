@@ -1,42 +1,72 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const todoSlice = createSlice({
+export const todosSlice = createSlice({
   name: "todos",
   initialState: {
-    todoList: [],
+    todoList: JSON.parse(localStorage.getItem("todos")) || [],
+    isDoneAll: false,
     filter: "all",
   },
   reducers: {
-    createTodo: (state, action) => {
-      state.todoList.push(action.payload)
+    // Done
+    addTodo: (state, action) => {
+      state.todoList.push(action.payload);
     },
 
-    deleteTodo: (state, action) => {
-      state.todoList = state.todoList.filter(todo => todo.id !== action.payload);
+    // Done
+    removeTodo: (state, action) => {
+      state.todoList = state.todoList.filter(
+        (todo) => todo.id !== action.payload
+      );
     },
 
-    editTodo: (state, action) => {
-      state.todoList = state.todoList.map(todo => {
-        if(todo.id === action.payload.id) {
-          return { ...todo, action.payload.title };
+    // Done
+    changeTodo: (state, action) => {
+      for (let todo of state.todoList) {
+        if (todo.id === action.payload.id) {
+          todo.title = action.payload.title;
         }
-
-        return todo;
-      })
+      }
     },
 
-  }
+    // Done
+    toggleTodo: (state, action) => {
+      for (let todo of state.todoList) {
+        if (todo.id === action.payload) {
+          todo.completed = !todo.completed;
+        }
+      }
+    },
+
+    // Done
+    toggleTodoAll: (state) => {
+      for (let todo of state.todoList) {
+        todo.completed = !state.isDoneAll;
+      }
+
+      state.isDoneAll = !state.isDoneAll;
+    },
+
+    // Done
+    deleteCompletedTodo: (state) => {
+      state.todoList = state.todoList.filter((todo) => !todo.completed);
+    },
+
+    selectShowedFiltered: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
 });
 
 // Action creators are generated for each case reducer function
 export const {
-  createTodo,
-  deleteTodo,
-  editTodo,
-  checkTodo,
-  checkTodoAll,
-  selectFilter,
-  clearCompletedTodo,
-} = todoSlice.actions;
+  addTodo,
+  removeTodo,
+  changeTodo,
+  toggleTodo,
+  toggleTodoAll,
+  deleteCompletedTodo,
+  selectShowedFiltered,
+} = todosSlice.actions;
 
-export default todoSlice.reducer;
+export default todosSlice.reducer;

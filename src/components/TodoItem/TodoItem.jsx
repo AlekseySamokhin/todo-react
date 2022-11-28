@@ -54,9 +54,7 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
 
           <h3 className={styles.todoItemTitle}>
             {todo.completed ? (
-              <span className={styles.todoItemDone}>
-                {todo.title}
-              </span>
+              <span className={styles.todoItemDone}>{todo.title}</span>
             ) : (
               <span>{todo.title}</span>
             )}
@@ -74,10 +72,13 @@ const TodoItem = ({ todo, deleteTodo, editTodo, checkTodo }) => {
         />
       )}
       <div className={styles.todoItemButtons}>
-        <button className={styles.todoItemEdit} onClick={() => setIsEditing(true)}>
+        <button
+          className={styles.todoItemEdit}
+          onClick={() => setIsEditing(true)}
+        >
           <BiPencil />
         </button>
-        
+
         <button className={styles.todoItemDelete} onClick={handleDeleteTodo}>
           <FiX />
         </button>
