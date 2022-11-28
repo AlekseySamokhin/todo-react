@@ -1,10 +1,10 @@
 import { createSelector } from "reselect";
 
-const getFilterTodoList = (state) => state.todos.filter;
+const getCurrentFilter = (state) => state.todos.isFiltered;
 const getTodoList = (state) => state.todos.todoList;
 
-export const getFilteredTodoList = createSelector(
-  [getFilterTodoList, getTodoList],
+export const filterTodos = createSelector(
+  [getCurrentFilter, getTodoList],
   (filter, todoList) => {
     if (filter === "all") {
       return todoList;

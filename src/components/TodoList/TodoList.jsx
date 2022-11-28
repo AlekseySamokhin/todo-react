@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 
-import TodoItem from "../TodoItem/TodoItem";
+import { useSelector } from "react-redux";
+
+import TodoListItem from "../TodoListItem";
+
+import { filterTodos } from "../../store/selector";
 
 import styles from "./TodoList.module.css";
-
-import { getFilteredTodoList } from "../../store/selector";
-
-import { useSelector } from "react-redux";
 
 const TodoList = ({
   filter,
@@ -15,7 +15,7 @@ const TodoList = ({
   doneTodo,
   clearCompletedTodo,
 }) => {
-  const todoList = useSelector(getFilteredTodoList);
+  const todoList = useSelector(filterTodos);
 
   const lengthCompletedTodos = useMemo(
     () => todoList.filter((todo) => todo.completed).length,
@@ -30,7 +30,7 @@ const TodoList = ({
     <div className={styles.todoList}>
       <ul className={styles.todoListSheet}>
         {todoList.map((todo) => (
-          <TodoItem
+          <TodoListItem
             key={todo.id}
             todo={todo}
             deleteTodo={deleteTodo}

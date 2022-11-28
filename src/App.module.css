@@ -60,6 +60,11 @@
   background-color: #3d3a3a;
 }
 
+.headerCount {
+  font-size: 16px;
+  font-style: italic;
+}
+
 .footer {
   padding: 20px 95px;
   background-color: #4d4646;
@@ -75,4 +80,3 @@
 .filterItem:not(:last-child) {
   margin-right: 15px;
 }
-

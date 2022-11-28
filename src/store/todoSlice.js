@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { dataTodo } from "./data";
+
 export const todoSlice = createSlice({
   name: "todos",
   initialState: {
-    todoList: JSON.parse(localStorage.getItem("todos")) || [],
+    todoList: dataTodo,
     isCompletedAll: false,
-    filter: "all",
+    isFiltered: "all",
   },
   reducers: {
     todoAdded: (state, action) => {
@@ -47,7 +49,7 @@ export const todoSlice = createSlice({
     },
 
     filterSelected: (state, action) => {
-      state.filter = action.payload;
+      state.isFiltered = action.payload;
     },
   },
 });

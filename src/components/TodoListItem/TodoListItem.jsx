@@ -3,9 +3,9 @@ import { useState } from "react";
 import { FiX } from "react-icons/fi";
 import { BiPencil } from "react-icons/bi";
 
-import styles from "./TodoItem.module.css";
+import styles from "./TodoListItem.module.css";
 
-const TodoItem = ({ todo, deleteTodo, editTodo, doneTodo }) => {
+const TodoListItem = ({ todo, deleteTodo, editTodo, doneTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [input, setInput] = useState(todo.title);
@@ -87,4 +87,4 @@ const TodoItem = ({ todo, deleteTodo, editTodo, doneTodo }) => {
   );
 };
 
-export default TodoItem;
+export default TodoListItem;

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import FilterButtons from "./components/FilterButtons";
+import TodoFooter from "./components/TodoFooter";
 
 import { FaRegCheckCircle } from "react-icons/fa";
 
@@ -20,12 +20,12 @@ import {
   filterSelected,
 } from "./store/todoSlice";
 
-import { getFilteredTodoList } from "./store/selector";
+import { filterTodos } from "./store/selector";
 
 import styles from "./App.module.css";
 
 const App = () => {
-  const todos = useSelector(getFilteredTodoList);
+  const todos = useSelector(filterTodos);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -106,9 +106,7 @@ const App = () => {
           />
         </div>
 
-        <div className={styles.footer}>
-          <FilterButtons checkFilter={checkFilter} />
-        </div>
+        <TodoFooter checkFilter={checkFilter} />
       </div>
     </div>
   );
