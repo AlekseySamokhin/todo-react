@@ -1,21 +1,19 @@
 import React, { useMemo } from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import TodoListItem from "../TodoListItem";
+import { compeletedCleared } from "../../store/todoSlice";
 
 import { filterTodos } from "../../store/selector";
 
+import TodoListItem from "../TodoListItem";
+
 import styles from "./TodoList.module.css";
 
-const TodoList = ({
-  filter,
-  deleteTodo,
-  editTodo,
-  doneTodo,
-  clearCompletedTodo,
-}) => {
+const TodoList = ({ filter }) => {
   const todoList = useSelector(filterTodos);
+
+  const dispatch = useDispatch();
 
   const lengthCompletedTodos = useMemo(
     () => todoList.filter((todo) => todo.completed).length,
@@ -23,20 +21,14 @@ const TodoList = ({
   );
 
   const handleClearCompleted = () => {
-    clearCompletedTodo();
+    dispatch(compeletedCleared());
   };
 
   return (
     <div className={styles.todoList}>
       <ul className={styles.todoListSheet}>
         {todoList.map((todo) => (
-          <TodoListItem
-            key={todo.id}
-            todo={todo}
-            deleteTodo={deleteTodo}
-            editTodo={editTodo}
-            doneTodo={doneTodo}
-          />
+          <TodoListItem key={todo.id} todo={todo} />
         ))}
       </ul>
       {todoList.length === 0 && (

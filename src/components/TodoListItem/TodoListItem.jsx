@@ -1,33 +1,39 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
+import { useDispatch } from "react-redux";
 
 import { FiX } from "react-icons/fi";
 import { BiPencil } from "react-icons/bi";
 
+import { todoDeleted, todoEdited, todoCompleted } from "../../store/todoSlice";
+
 import styles from "./TodoListItem.module.css";
 
-const TodoListItem = ({ todo, deleteTodo, editTodo, doneTodo }) => {
+const TodoListItem = ({ todo: { title, id, completed } }) => {
+  const dispatch = useDispatch();
+
   const [isEditing, setIsEditing] = useState(false);
 
-  const [input, setInput] = useState(todo.title);
+  const [input, setInput] = useState(title);
 
   const onChangeInput = (e) => {
     setInput(e.target.value);
   };
 
   const handleDeleteTodo = () => {
-    deleteTodo(todo.id);
+    dispatch(todoDeleted(id));
   };
 
   const handleCheckTodo = () => {
-    doneTodo(todo.id);
+    dispatch(todoCompleted(id));
   };
 
   const handleEditTodo = () => {
-    editTodo(todo.id, input);
+    dispatch(todoEdited({ id, title: input }));
   };
 
   const handleBlur = () => {
-    editTodo(todo.id, input);
+    dispatch(todoEdited({ id, title: input }));
     setIsEditing(false);
   };
 
@@ -48,16 +54,14 @@ const TodoListItem = ({ todo, deleteTodo, editTodo, doneTodo }) => {
           <input
             className={styles.todoItemCheckbox}
             type="checkbox"
-            checked={todo.completed}
+            checked={completed}
             onChange={handleCheckTodo}
           />
 
           <h3 className={styles.todoItemTitle}>
-            {todo.completed ? (
-              <span className={styles.todoItemDone}>{todo.title}</span>
-            ) : (
-              <span>{todo.title}</span>
-            )}
+            <span className={completed ? styles.todoItemDone : ""}>
+              {title}
+            </span>
           </h3>
         </div>
       ) : (

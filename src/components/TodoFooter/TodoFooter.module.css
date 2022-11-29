@@ -22,12 +22,6 @@
   padding: 10px;
 }
 
-.filterButtonActive {
-  cursor: pointer;
+.active {
   border: 2px solid #fff;
-  font-size: 16px;
-  color: #fff;
-  min-width: 120px;
-  background-color: #4d4646;
-  padding: 10px;
 }

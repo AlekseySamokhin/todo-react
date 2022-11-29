@@ -1,65 +1,18 @@
-import React, { useMemo } from "react";
+import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import FilterButton from "../FilterButton /FilterButton";
 
 import styles from "./TodoFooter.module.css";
 
-const TodoFooter = ({ checkFilter }) => {
-  const todos = useSelector((state) => state.todos.todoList);
-
-  const lengthFilteredTodos = useMemo(
-    () => ({
-      all: todos.length,
-      active: todos.filter((todo) => !todo.completed).length,
-      completed: todos.filter((todo) => todo.completed).length,
-    }),
-    [todos]
-  );
-
-  const dispatch = useDispatch();
-
-  const currentFilter = useSelector((state) => state.todos.filter);
-
-  const handleChangeFilter = (filter) => {
-    dispatch(checkFilter(filter));
-  };
+const TodoFooter = () => {
+  const buttons = ["all", "active", "completed"];
 
   return (
     <div className={styles.footer}>
       <div className={styles.filterTodos}>
-        <button
-          type="button"
-          className={
-            currentFilter === "all"
-              ? styles.filterButtonActive
-              : styles.filterButton
-          }
-          onClick={() => handleChangeFilter("all")}
-        >
-          All {lengthFilteredTodos.all}
-        </button>
-        <button
-          type="button"
-          className={
-            currentFilter === "active"
-              ? styles.filterButtonActive
-              : styles.filterButton
-          }
-          onClick={() => handleChangeFilter("active")}
-        >
-          Active {lengthFilteredTodos.active}
-        </button>
-        <button
-          type="button"
-          className={
-            currentFilter === "completed"
-              ? styles.filterButtonActive
-              : styles.filterButton
-          }
-          onClick={() => handleChangeFilter("completed")}
-        >
-          Completed {lengthFilteredTodos.completed}
-        </button>
+        {buttons.map((button) => (
+          <FilterButton key={button} filter={button} />
+        ))}
       </div>
     </div>
   );

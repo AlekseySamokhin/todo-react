@@ -1,15 +1,20 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 
-import { useSelector } from "react-redux";
 import { filterTodos } from "../../store/selector";
+
+import { todoAdded, allCompleted } from "../../store/todoSlice";
 
 import styles from "./TodoForm.module.css";
 
-const TodoForm = ({ createTodo, doneTodoAll }) => {
-  const isDoneAll = useSelector((state) => state.todos.isDoneAll);
+const TodoForm = () => {
+  const dispatch = useDispatch();
+
+  const isCompletedAll = useSelector((state) => state.todos.isCompletedAll);
 
   const todos = useSelector(filterTodos);
 
@@ -22,13 +27,14 @@ const TodoForm = ({ createTodo, doneTodoAll }) => {
   const handleAddTodo = (e) => {
     e.preventDefault();
 
-    createTodo(input);
-
-    setInput("");
+    if (input.trim() !== "") {
+      dispatch(todoAdded(input));
+      setInput("");
+    }
   };
 
-  const handleCheckAllTodo = (e) => {
-    doneTodoAll();
+  const handleCheckAllTodo = () => {
+    dispatch(allCompleted());
   };
 
   return (
@@ -37,7 +43,7 @@ const TodoForm = ({ createTodo, doneTodoAll }) => {
         <div className={styles.checkAll} onClick={handleCheckAllTodo}>
           <AiOutlineCheckCircle
             className={
-              isDoneAll ? styles.checkAllIcon : styles.checkAllIconActive
+              isCompletedAll ? styles.checkAllIcon : styles.checkAllIconActive
             }
           />
         </div>

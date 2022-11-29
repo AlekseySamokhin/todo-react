@@ -65,18 +65,3 @@
   font-style: italic;
 }
 
-.footer {
-  padding: 20px 95px;
-  background-color: #4d4646;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.filterList {
-  display: flex;
-}
-
-.filterItem:not(:last-child) {
-  margin-right: 15px;
-}
