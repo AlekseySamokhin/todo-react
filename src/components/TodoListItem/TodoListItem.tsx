@@ -41,7 +41,11 @@ const TodoListItem: React.FC<Props> = ({ todo }) => {
   };
 
   const handleEditTodo = () => {
-    dispatch(todoEdited({ id, title: input }));
+    if (input === "") {
+      dispatch(todoDeleted(id));
+    } else {
+      dispatch(todoEdited({ id, title: input }));
+    }
   };
 
   const handleBlur = () => {

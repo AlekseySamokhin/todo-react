@@ -29,6 +29,7 @@ const TodoForm: React.FC = () => {
 
     if (input.trim() !== "") {
       dispatch(todoAdded(input));
+
       setInput("");
     }
   };
@@ -42,9 +43,9 @@ const TodoForm: React.FC = () => {
       {todos.length !== 0 && (
         <div className={styles.checkAll} onClick={handleCheckAllTodo}>
           <AiOutlineCheckCircle
-            className={
-              isCompletedAll ? styles.checkAllIcon : styles.checkAllIconActive
-            }
+            className={`${styles.checkAllIcon} ${
+              isCompletedAll ? "" : styles.active
+            }`}
           />
         </div>
       )}

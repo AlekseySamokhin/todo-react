@@ -1,21 +1,23 @@
 import React, { useMemo } from "react";
 
+// hooks
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
+// types
 import type { FilterTypes } from "../../store/types";
 
+// action
 import { filterSelected } from "../../store/todoSlice";
 
+// styles
 import styles from "./FilterButton.module.css";
-
-// interface FilterButtons {
-//   filter: FilterTypes;
-// }
 
 const FilterButton: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { todos, todosFilter } = useAppSelector((state) => state.todoList);
+
+  console.log(todosFilter);
 
   const lengthFilteredTodos = useMemo(
     () => ({

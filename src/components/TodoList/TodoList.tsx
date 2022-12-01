@@ -6,29 +6,27 @@ import TodoListItem from "../TodoListItem";
 // hooks
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 
-import { getFilteredTodos } from "../../store/selector";
-
 // action
 import { compeletedCleared } from "../../store/todoSlice";
+
+import { getFilteredTodos } from "../../store/selector";
 
 // styles
 import styles from "./TodoList.module.css";
 
 const TodoList: React.FC = () => {
-  const { todos, todosFilter } = useAppSelector((state) => state.todoList);
-
-  const todosList = useAppSelector(getFilteredTodos);
-
-  console.log(todos);
-
   const dispatch = useAppDispatch();
 
-  const lengthCompletedTodos = useMemo(
-    () => todosList.filter((todo) => todo.completed).length,
-    [todosList]
-  );
+  const { todos, todosFilter } = useAppSelector((state) => state.todoList);
 
-  console.log(lengthCompletedTodos);
+  const todosFiltered = useAppSelector(getFilteredTodos);
+
+  console.log(todosFiltered);
+
+  const lengthCompletedTodos = useMemo(
+    () => todos.filter((todo) => todo.completed).length,
+    [todos]
+  );
 
   const handleClearCompleted = () => {
     dispatch(compeletedCleared());
@@ -37,11 +35,11 @@ const TodoList: React.FC = () => {
   return (
     <div className={styles.todoList}>
       <ul className={styles.todoListSheet}>
-        {todosList.map((todo) => (
+        {todosFiltered.map((todo) => (
           <TodoListItem key={todo.id} todo={todo} />
         ))}
       </ul>
-      {todosList.length === 0 && (
+      {todosFiltered.length === 0 && (
         <h3 className={styles.todoListEmpty}>
           {todosFilter} todos for today is empty...
         </h3>

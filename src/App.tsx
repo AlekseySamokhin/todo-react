@@ -1,23 +1,30 @@
 import React, { useEffect } from "react";
 
-// Components
+// icons component
 import { FaRegCheckCircle } from "react-icons/fa";
 
-import TodoForm from "./components/TodoForm/TodoForm";
-import TodoList from "./components/TodoList/TodoList";
-import TodoFooter from "./components/TodoFooter/TodoFooter";
+// components
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
+import TodoFooter from "./components/TodoFooter";
 
 // hooks
 import { useAppSelector } from "./store/hooks";
+
+// selector
+import { getFilteredTodos } from "./store/selector";
+
+// use local-storage
+import { saveTodoItemsToLocalStorage } from "./store/useLocalStorage";
 
 // styles
 import styles from "./App.module.css";
 
 const App: React.FC = () => {
-  const todos = useAppSelector((state) => state.todoList.todos);
+  const todos = useAppSelector(getFilteredTodos);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    saveTodoItemsToLocalStorage(todos);
   }, [todos]);
 
   const countTodos =
