@@ -4,7 +4,7 @@ import todoSlice from "./todoSlice";
 
 const store = configureStore({
   reducer: {
-    todos: todoSlice,
+    todoList: todoSlice,
   },
 });
 
