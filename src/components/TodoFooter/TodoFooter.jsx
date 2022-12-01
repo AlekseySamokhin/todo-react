@@ -1,6 +1,6 @@
 import React from "react";
 
-import FilterButton from "../FilterButton /FilterButton";
+import FilterButton from "../../components/FilterButton";
 
 import styles from "./TodoFooter.module.css";
 
