@@ -1,19 +1,20 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-import { useSelector } from "react-redux";
-
+// Components
 import { FaRegCheckCircle } from "react-icons/fa";
 
 import TodoForm from "./components/TodoForm/TodoForm";
 import TodoList from "./components/TodoList/TodoList";
 import TodoFooter from "./components/TodoFooter/TodoFooter";
 
-import { getTodosFilter } from "./store/selector";
+// hooks
+import { useAppSelector } from "./store/hooks";
 
+// styles
 import styles from "./App.module.css";
 
-const App = () => {
-  const todos = useSelector(getTodosFilter);
+const App: React.FC = () => {
+  const todos = useAppSelector((state) => state.todoList.todos);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));

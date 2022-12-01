@@ -1,17 +1,21 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+
+import type { FilterTypes } from "../../store/types";
 
 import { filterSelected } from "../../store/todoSlice";
 
 import styles from "./FilterButton.module.css";
 
-const FilterButton: React.FC = ({ filter }) => {
-  const dispatch = useDispatch();
+// interface FilterButtons {
+//   filter: FilterTypes;
+// }
 
-  const todos = useSelector((state) => state.todos.todoList);
+const FilterButton: React.FC = () => {
+  const dispatch = useAppDispatch();
 
-  const currentFilter = useSelector((state) => state.todos.isFiltered);
+  const { todos, todosFilter } = useAppSelector((state) => state.todoList);
 
   const lengthFilteredTodos = useMemo(
     () => ({
@@ -22,20 +26,40 @@ const FilterButton: React.FC = ({ filter }) => {
     [todos]
   );
 
-  const checkFilter = (filter) => {
+  const checkFilter = (filter: FilterTypes) => {
     dispatch(filterSelected(filter));
   };
 
   return (
-    <button
-      type="button"
-      className={`${styles.filterButton} ${
-        currentFilter === filter ? styles.active : ""
-      }`}
-      onClick={() => checkFilter(filter)}
-    >
-      {filter} {lengthFilteredTodos[filter]}
-    </button>
+    <div>
+      <button
+        type="button"
+        className={`${styles.filterButton} ${
+          todosFilter === "all" ? styles.active : ""
+        }`}
+        onClick={() => checkFilter("all")}
+      >
+        All {lengthFilteredTodos["all"]}
+      </button>
+      <button
+        type="button"
+        className={`${styles.filterButton} ${
+          todosFilter === "active" ? styles.active : ""
+        }`}
+        onClick={() => checkFilter("active")}
+      >
+        active {lengthFilteredTodos["active"]}
+      </button>
+      <button
+        type="button"
+        className={`${styles.filterButton} ${
+          todosFilter === "completed" ? styles.active : ""
+        }`}
+        onClick={() => checkFilter("completed")}
+      >
+        completed {lengthFilteredTodos["completed"]}
+      </button>
+    </div>
   );
 };
 

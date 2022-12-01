@@ -10,7 +10,7 @@ const getLocalStorageData = () => {
   }
 };
 
-export const todoData = getLocalStorageData();
+export const todoData: [] = getLocalStorageData();
 
 // TODO ADD BOTTOM FUNCTION
 

@@ -1,24 +1,34 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react";
+import React, { useState } from "react";
 
-import { useDispatch } from "react-redux";
-
+// icons components
 import { FiX } from "react-icons/fi";
 import { BiPencil } from "react-icons/bi";
 
-import { TodoItem } from "../../store/types";
+// hooks
+import { useAppDispatch } from "../../store/hooks";
 
+// actions
 import { todoDeleted, todoEdited, todoCompleted } from "../../store/todoSlice";
 
+// types
+import { TodoItem } from "../../store/types";
+
+// styles
 import styles from "./TodoListItem.module.css";
 
-const TodoListItem: React.FC = ({ todo: { title, id, completed } }) => {
-  const dispatch = useDispatch();
+type Props = {
+  todo: TodoItem;
+};
 
-  const [isEditing, setIsEditing] = useState(false);
+const TodoListItem: React.FC<Props> = ({ todo }) => {
+  const { title, completed, id } = todo;
+  const dispatch = useAppDispatch();
 
-  const [input, setInput] = useState(title);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const [input, setInput] = useState<string>(title);
+
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
@@ -39,7 +49,7 @@ const TodoListItem: React.FC = ({ todo: { title, id, completed } }) => {
     setIsEditing(false);
   };
 
-  const handleEditDone = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleEditDone = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleEditTodo();
       setIsEditing(false);

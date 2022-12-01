@@ -1,30 +1,30 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-
+// icons
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 
-import { getFilteredTodos } from "../../store/selector";
+// hooks
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 
+// action
 import { todoAdded, allCompleted } from "../../store/todoSlice";
 
+// styles
 import styles from "./TodoForm.module.css";
 
-const TodoForm = () => {
-  const dispatch = useDispatch();
-
-  const isCompletedAll = useSelector((state) => state.todos.isCompletedAll);
-
-  const todos = useSelector(getFilteredTodos);
-
+const TodoForm: React.FC = () => {
   const [input, setInput] = useState<string>("");
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const { isCompletedAll, todos } = useAppSelector((state) => state.todoList);
+
+  const dispatch = useAppDispatch();
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
-  const handleAddTodo = (e: FormEvent<HTMLButtonElement>) => {
+  const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (input.trim() !== "") {
@@ -38,7 +38,7 @@ const TodoForm = () => {
   };
 
   return (
-    <form className={styles.formTodo} onSubmit={(e) => handleAddTodo}>
+    <form className={styles.formTodo} onSubmit={handleAddTodo}>
       {todos.length !== 0 && (
         <div className={styles.checkAll} onClick={handleCheckAllTodo}>
           <AiOutlineCheckCircle

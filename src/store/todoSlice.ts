@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-import { v4 as uuidv4 } from "uuid";
+import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
 
 import { todoData } from "./todo-data";
 
-import { TodosState, TodoItem, FilterTypes } from "./types";
+import { TodosState, TodoItem } from "./types";
+
+import type { FilterTypes } from "./types";
 
 const initialState: TodosState = {
-  todos: todoData,
+  todos: [],
   isCompletedAll: false,
   todosFilter: "all",
 };
@@ -20,7 +20,7 @@ export const todoSlice = createSlice({
       const newTodo: TodoItem = {
         title: action.payload,
         completed: false,
-        id: uuidv4(),
+        id: nanoid(),
       };
 
       state.todos.push(newTodo);

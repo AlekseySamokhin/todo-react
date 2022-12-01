@@ -1,26 +1,34 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+// components
+import TodoListItem from "../TodoListItem";
 
+// hooks
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+
+import { getFilteredTodos } from "../../store/selector";
+
+// action
 import { compeletedCleared } from "../../store/todoSlice";
 
-import { getTodosFilter, getTodos } from "../../store/selector";
-
-import TodoListItem from "../TodoListItem/TodoListItem";
-
+// styles
 import styles from "./TodoList.module.css";
 
-const TodoList = () => {
-  const todoList = useSelector(getTodos);
+const TodoList: React.FC = () => {
+  const { todos, todosFilter } = useAppSelector((state) => state.todoList);
 
-  const filter = useSelector(getTodosFilter);
+  const todosList = useAppSelector(getFilteredTodos);
 
-  const dispatch = useDispatch();
+  console.log(todos);
+
+  const dispatch = useAppDispatch();
 
   const lengthCompletedTodos = useMemo(
-    () => todoList.filter((todo) => todo.completed).length,
-    [todoList]
+    () => todosList.filter((todo) => todo.completed).length,
+    [todosList]
   );
+
+  console.log(lengthCompletedTodos);
 
   const handleClearCompleted = () => {
     dispatch(compeletedCleared());
@@ -29,13 +37,13 @@ const TodoList = () => {
   return (
     <div className={styles.todoList}>
       <ul className={styles.todoListSheet}>
-        {todoList.map((todo) => (
+        {todosList.map((todo) => (
           <TodoListItem key={todo.id} todo={todo} />
         ))}
       </ul>
-      {todoList.length === 0 && (
+      {todosList.length === 0 && (
         <h3 className={styles.todoListEmpty}>
-          {filter} todos for today is empty...
+          {todosFilter} todos for today is empty...
         </h3>
       )}
       {lengthCompletedTodos !== 0 && (
