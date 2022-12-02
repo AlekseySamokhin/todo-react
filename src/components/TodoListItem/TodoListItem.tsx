@@ -11,16 +11,16 @@ import { useAppDispatch } from "../../store/hooks";
 import { todoDeleted, todoEdited, todoCompleted } from "../../store/todoSlice";
 
 // types
-import { TodoItem } from "../../store/types";
+import { ITodoItem } from "../../store/types";
 
 // styles
 import styles from "./TodoListItem.module.css";
 
-type Props = {
-  todo: TodoItem;
+type TodoListItemProps = {
+  todo: ITodoItem;
 };
 
-const TodoListItem: React.FC<Props> = ({ todo }) => {
+const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
   const { title, completed, id } = todo;
   const dispatch = useAppDispatch();
 

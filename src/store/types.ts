@@ -1,10 +1,10 @@
-export interface TodosState {
-  todos: TodoItem[];
+export interface ITodosState {
+  todos: ITodoItem[];
   isCompletedAll: boolean;
   todosFilter: FilterTypes;
 }
 
-export interface TodoItem {
+export interface ITodoItem {
   title: string;
   completed: boolean;
   id: string;

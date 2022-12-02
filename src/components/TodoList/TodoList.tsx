@@ -9,6 +9,7 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 // action
 import { compeletedCleared } from "../../store/todoSlice";
 
+// selector
 import { getFilteredTodos } from "../../store/selector";
 
 // styles

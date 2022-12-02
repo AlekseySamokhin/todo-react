@@ -8,13 +8,14 @@ export const getTodosFilter = (state: RootState) => state.todoList.todosFilter;
 export const getFilteredTodos = createSelector(
   [getTodosFilter, getTodos],
   (todosFilter, todos) => {
-    switch (todosFilter) {
-      case "completed":
-        return todos.filter((todo) => todo.completed);
-      case "active":
-        return todos.filter((todo) => !todo.completed);
-      default:
-        return todos;
+    if (todosFilter === "completed") {
+      return todos.filter((todo) => todo.completed);
     }
+
+    if (todosFilter === "active") {
+      return todos.filter((todo) => !todo.completed);
+    }
+
+    return todos;
   }
 );

@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { TodosState, TodoItem } from "./types";
+import { ITodosState, ITodoItem } from "./types";
 
 import type { FilterTypes } from "./types";
 
 import { getTodoItemsFromLocalStorage } from "./useLocalStorage";
 
-const initialState: TodosState = {
+const initialState: ITodosState = {
   todos: getTodoItemsFromLocalStorage(),
   isCompletedAll: false,
   todosFilter: "all",
@@ -19,7 +19,7 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     todoAdded: (state, action: PayloadAction<string>) => {
-      const newTodo: TodoItem = {
+      const newTodo: ITodoItem = {
         title: action.payload,
         completed: false,
         id: uuidv4(),

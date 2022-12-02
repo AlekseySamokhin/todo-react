@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// icons
+// icons components
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 

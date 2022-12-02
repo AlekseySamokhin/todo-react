@@ -1,8 +1,10 @@
-export const TODO_STORAGE_KEY = "todos";
+import { ITodoItem } from "./types";
+
+export const TODO_STORAGE_KEY: string = "todos";
 
 export const getTodoItemsFromLocalStorage = () => {
   try {
-    const storageValue = JSON.parse(
+    const storageValue: ITodoItem[] = JSON.parse(
       localStorage.getItem(TODO_STORAGE_KEY) || ""
     );
 
@@ -12,6 +14,6 @@ export const getTodoItemsFromLocalStorage = () => {
   }
 };
 
-export const saveTodoItemsToLocalStorage = (storageValue: object) => {
+export const saveTodoItemsToLocalStorage = (storageValue: ITodoItem[]) => {
   localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(storageValue));
 };
