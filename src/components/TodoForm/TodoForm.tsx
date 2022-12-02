@@ -11,7 +11,8 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { todoAdded, allCompleted } from "../../store/todoSlice";
 
 // styles
-import styles from "./TodoForm.module.css";
+// import styles from "./TodoForm.module.css";
+import TodoFormStyles from "./TodoForm.styles";
 
 const TodoForm: React.FC = () => {
   const [input, setInput] = useState<string>("");
@@ -39,29 +40,27 @@ const TodoForm: React.FC = () => {
   };
 
   return (
-    <form className={styles.formTodo} onSubmit={handleAddTodo}>
+    <TodoFormStyles onSubmit={handleAddTodo}>
       {todos.length !== 0 && (
-        <div className={styles.checkAll} onClick={handleCheckAllTodo}>
+        <div className="formTodo__checkAll" onClick={handleCheckAllTodo}>
           <AiOutlineCheckCircle
-            className={`${styles.checkAllIcon} ${
-              isCompletedAll ? "" : styles.active
-            }`}
+            className={`checkAllIcon ${isCompletedAll ? "" : "active"}`}
           />
         </div>
       )}
 
       <input
-        className={styles.formTodoInput}
+        className="formTodoInput"
         placeholder="What needs to be done?"
         type="text"
         value={input}
         onChange={onInputChange}
       />
 
-      <button className={styles.formTodoButton}>
+      <button className="formTodo__btn">
         <AiOutlinePlusCircle />
       </button>
-    </form>
+    </TodoFormStyles>
   );
 };
 

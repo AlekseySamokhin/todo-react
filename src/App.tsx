@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 
-// icons component
+// icon components
 import { FaRegCheckCircle } from "react-icons/fa";
 
 // components
@@ -17,8 +17,8 @@ import { getFilteredTodos } from "./store/selector";
 // use local-storage
 import { saveTodoItemsToLocalStorage } from "./store/useLocalStorage";
 
-// styles
-import styles from "./App.module.css";
+// styled component
+import StylesTodos from "./App.styles";
 
 const App: React.FC = () => {
   const todos = useAppSelector(getFilteredTodos);
@@ -27,23 +27,33 @@ const App: React.FC = () => {
     saveTodoItemsToLocalStorage(todos);
   }, [todos]);
 
-  const countTodos =
-    todos.length >= 1 ? `${todos.length} items` : `${todos.length} item`;
+  const taskCounter = useMemo(() => {
+    let count;
+    if (todos.length === 0) {
+      count = `No item left`;
+    } else if (todos.length === 1) {
+      count = `${todos.length} item left`;
+    } else {
+      count = `${todos.length} items left`;
+    }
+
+    return count;
+  }, [todos]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.todos}>
-        <div className={styles.header}>
-          <div className={styles.headerMain}>
-            <FaRegCheckCircle className={styles.headerIcon} />
+    <StylesTodos>
+      <div className="todos">
+        <div className="header">
+          <div className="header__wrapper">
+            <FaRegCheckCircle className="header__icon" />
 
-            <h1 className={styles.headerTitle}>Todo List</h1>
+            <h1 className="header__title">Todo List</h1>
           </div>
 
-          <div className={styles.headerCount}>{countTodos} left</div>
+          <div className="header__count">{taskCounter}</div>
         </div>
 
-        <div className={styles.main}>
+        <div className="todos__body">
           <TodoForm />
 
           <TodoList />
@@ -51,7 +61,7 @@ const App: React.FC = () => {
 
         <TodoFooter />
       </div>
-    </div>
+    </StylesTodos>
   );
 };
 
