@@ -10,14 +10,14 @@ import type { FilterTypes } from "../../store/types";
 import { filterSelected } from "../../store/todoSlice";
 
 // styles
-import styles from "./TodoFooter.module.css";
+import { StyledButton, TodoFooterStyles } from "./TodoFooter.styled"
 
 const TodoFooter: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { todos, todosFilter } = useAppSelector((state) => state.todoList);
 
-  const lengthFilteredTodos = useMemo(
+  const countFilteredTodos = useMemo(
     () => ({
       all: todos.length,
       active: todos.filter((todo) => !todo.completed).length,
@@ -30,36 +30,22 @@ const TodoFooter: React.FC = () => {
     dispatch(filterSelected(filter));
   };
 
+  const buttonsFiltersNames: FilterTypes[] = ["all", "active", "completed"];
+
   return (
-    <div className={styles.footer}>
-      <button
-        type="button"
-        className={`${styles.filterButton} ${
-          todosFilter === "all" ? styles.active : ""
-        }`}
-        onClick={() => checkFilter("all")}
-      >
-        all {lengthFilteredTodos["all"]}
-      </button>
-      <button
-        type="button"
-        className={`${styles.filterButton} ${
-          todosFilter === "active" ? styles.active : ""
-        }`}
-        onClick={() => checkFilter("active")}
-      >
-        active {lengthFilteredTodos["active"]}
-      </button>
-      <button
-        type="button"
-        className={`${styles.filterButton} ${
-          todosFilter === "completed" ? styles.active : ""
-        }`}
-        onClick={() => checkFilter("completed")}
-      >
-        completed {lengthFilteredTodos["completed"]}
-      </button>
-    </div>
+    <TodoFooterStyles>
+      {
+        buttonsFiltersNames.map(filterName => (
+          <StyledButton 
+          filter={filterName}
+          todosFilter={todosFilter}
+          onClick={() => checkFilter(filterName)}
+        >
+          {filterName} {countFilteredTodos[filterName]}
+        </StyledButton>
+        ))
+      }
+    </TodoFooterStyles>
   );
 };
 

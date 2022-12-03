@@ -13,7 +13,7 @@ import { compeletedCleared } from "../../store/todoSlice";
 import { getFilteredTodos } from "../../store/selector";
 
 // styles
-import styles from "./TodoList.module.css";
+import { TodoListStyled } from "./TodoList.styled";
 
 const TodoList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,8 +21,6 @@ const TodoList: React.FC = () => {
   const { todos, todosFilter } = useAppSelector((state) => state.todoList);
 
   const todosFiltered = useAppSelector(getFilteredTodos);
-
-  console.log(todosFiltered);
 
   const lengthCompletedTodos = useMemo(
     () => todos.filter((todo) => todo.completed).length,
@@ -34,26 +32,26 @@ const TodoList: React.FC = () => {
   };
 
   return (
-    <div className={styles.todoList}>
-      <ul className={styles.todoListSheet}>
+    <TodoListStyled>
+      <ul className="todoList__sheet">
         {todosFiltered.map((todo) => (
           <TodoListItem key={todo.id} todo={todo} />
         ))}
       </ul>
       {todosFiltered.length === 0 && (
-        <h3 className={styles.todoListEmpty}>
+        <h3 className="todoList__empty">
           {todosFilter} todos for today is empty...
         </h3>
       )}
       {lengthCompletedTodos !== 0 && (
         <button
-          className={styles.clearCompletedButton}
+          className="clearCompletedButton"
           onClick={handleClearCompleted}
         >
           Clear completed
         </button>
       )}
-    </div>
+    </TodoListStyled>
   );
 };
 

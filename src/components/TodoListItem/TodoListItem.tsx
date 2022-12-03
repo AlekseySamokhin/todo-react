@@ -14,8 +14,9 @@ import { todoDeleted, todoEdited, todoCompleted } from "../../store/todoSlice";
 import { ITodoItem } from "../../store/types";
 
 // styles
-import styles from "./TodoListItem.module.css";
+import { TodoItemBtn, TodoListItemStyles } from "./TodoListItem.styled"
 
+// type
 type TodoListItemProps = {
   todo: ITodoItem;
 };
@@ -61,21 +62,21 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
   };
 
   return (
-    <li className={styles.todoItem}>
+    <TodoListItemStyles>
       {!isEditing ? (
         <div
-          className={styles.todoItemText}
+          className="todoItem__text"
           onDoubleClick={() => setIsEditing(true)}
         >
           <input
-            className={styles.todoItemCheckbox}
+            className="todoItem__checkbox"
             type="checkbox"
             checked={completed}
             onChange={handleCheckTodo}
           />
 
-          <h3 className={styles.todoItemTitle}>
-            <span className={completed ? styles.todoItemDone : ""}>
+          <h3 className="todoItem__title">
+            <span className={completed ? "todoItem__done" : ""}>
               {title}
             </span>
           </h3>
@@ -83,7 +84,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
       ) : (
         <input
           type="text"
-          className={styles.todoInput}
+          className="todoItem__input"
           value={input}
           onChange={onChangeInput}
           onKeyDown={handleEditDone}
@@ -91,19 +92,16 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
           autoFocus
         />
       )}
-      <div className={styles.todoItemButtons}>
-        <button
-          className={styles.todoItemEdit}
-          onClick={() => setIsEditing(true)}
-        >
+      <div className="todoItem__buttons">
+        <TodoItemBtn onClick={() => setIsEditing(true)}>
           <BiPencil />
-        </button>
+        </TodoItemBtn>
 
-        <button className={styles.todoItemDelete} onClick={handleDeleteTodo}>
+        <TodoItemBtn onClick={handleDeleteTodo}>
           <FiX />
-        </button>
+        </TodoItemBtn>
       </div>
-    </li>
+    </TodoListItemStyles>
   );
 };
 

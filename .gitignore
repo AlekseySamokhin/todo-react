@@ -24,3 +24,8 @@ yarn-error.log*
 
 index.css
 /src/components/FilterButton/
+/src/App.module.css
+/src/components/TodoFooter/TodoFooter.module.css
+/src/components/TodoForm/TodoForm.module.css
+/src/components/TodoListItem/TodoListItem.module.css
+/src/components/TodoLis/TodoList.module.css
