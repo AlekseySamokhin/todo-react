@@ -42,11 +42,3 @@
   cursor: pointer;
 }
 
-.checkAllIcon {
-  color: rgb(209, 202, 202);
-  font-size: 30px;
-}
-
-.active {
-  color: #3d3a3a;
-}

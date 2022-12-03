@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import styled from "styled-components";
+
 // icons components
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -11,8 +13,14 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { todoAdded, allCompleted } from "../../store/todoSlice";
 
 // styles
-// import styles from "./TodoForm.module.css";
 import TodoFormStyles from "./TodoForm.styles";
+
+
+const CheckAllIcon = styled(AiOutlineCheckCircle)<{isCompletedAll: boolean}>`
+  font-size: 30px;
+
+  color: ${({isCompletedAll}) => (isCompletedAll ? "rgb(209, 202, 202)" : "#3d3a3a")};
+`;
 
 const TodoForm: React.FC = () => {
   const [input, setInput] = useState<string>("");
@@ -42,15 +50,13 @@ const TodoForm: React.FC = () => {
   return (
     <TodoFormStyles onSubmit={handleAddTodo}>
       {todos.length !== 0 && (
-        <div className="formTodo__checkAll" onClick={handleCheckAllTodo}>
-          <AiOutlineCheckCircle
-            className={`checkAllIcon ${isCompletedAll ? "" : "active"}`}
-          />
-        </div>
+        <button className="formTodo__checkAll" onClick={handleCheckAllTodo}>
+          <CheckAllIcon isCompletedAll={isCompletedAll} />
+        </button>
       )}
 
       <input
-        className="formTodoInput"
+        className="formTodo__input"
         placeholder="What needs to be done?"
         type="text"
         value={input}

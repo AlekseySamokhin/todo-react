@@ -8,7 +8,7 @@ export default styled.form`
   align-items: center;
   color: #fff;
 
-  .formTodoInput {
+  .formTodo__input {
     font-family: inherit;
     width: 60%;
     padding: 16px 16px 16px 55px;
@@ -34,6 +34,8 @@ export default styled.form`
   }
 
   .formTodo__checkAll {
+    border: none;
+    background-color: white;
     position: absolute;
     z-index: 10;
     height: 30px;
@@ -43,7 +45,7 @@ export default styled.form`
     cursor: pointer;
   }
 
-  .checkAllIcon {
+  .formTodo__checkAll_icon {
     color: rgb(209, 202, 202);
     font-size: 30px;
   }
