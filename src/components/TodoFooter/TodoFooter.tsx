@@ -36,7 +36,8 @@ const TodoFooter: React.FC = () => {
     <TodoFooterStyles>
       {
         buttonsFiltersNames.map(filterName => (
-          <StyledButton 
+          <StyledButton
+          key={filterName} 
           filter={filterName}
           todosFilter={todosFilter}
           onClick={() => checkFilter(filterName)}
