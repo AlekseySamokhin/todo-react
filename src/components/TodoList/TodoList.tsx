@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 
 // components
 import TodoListItem from "../TodoListItem";
@@ -14,6 +14,8 @@ import { getFilteredTodos } from "../../store/selector";
 
 // styles
 import { TodoListStyled } from "./TodoList.styled";
+
+import { getTodosThunk } from "../../store/actionsThunk/todoThunk";
 
 const TodoList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -31,12 +33,19 @@ const TodoList: React.FC = () => {
     dispatch(compeletedCleared());
   };
 
+  useEffect(() => {
+    dispatch(getTodosThunk());
+  }, [dispatch]);
+
   return (
     <TodoListStyled>
       <ul className="todoList__sheet">
         {todosFiltered.map((todo) => (
           <TodoListItem key={todo.id} todo={todo} />
         ))}
+        {/* {todos.map((todo) => (
+          <TodoListItem key={todo.id} todo={todo} />
+        ))} */}
       </ul>
       {todosFiltered.length === 0 && (
         <h3 className="todoList__empty">
@@ -44,10 +53,7 @@ const TodoList: React.FC = () => {
         </h3>
       )}
       {lengthCompletedTodos !== 0 && (
-        <button
-          className="clearCompletedButton"
-          onClick={handleClearCompleted}
-        >
+        <button className="clearCompletedButton" onClick={handleClearCompleted}>
           Clear completed
         </button>
       )}

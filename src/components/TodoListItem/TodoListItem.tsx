@@ -8,13 +8,18 @@ import { BiPencil } from "react-icons/bi";
 import { useAppDispatch } from "../../store/hooks";
 
 // actions
-import { todoDeleted, todoEdited, todoCompleted } from "../../store/todoSlice";
+// import { todoDeleted, todoEdited, todoCompleted } from "../../store/todoSlice";
 
 // types
 import { ITodoItem } from "../../store/types";
 
 // styles
-import { TodoItemBtn, TodoListItemStyles } from "./TodoListItem.styled"
+import { TodoItemBtn, TodoListItemStyles } from "./TodoListItem.styled";
+
+import {
+  deleteTodoThunk,
+  updateTodoThunk,
+} from "../../store/actionsThunk/todoThunk";
 
 // type
 type TodoListItemProps = {
@@ -23,6 +28,7 @@ type TodoListItemProps = {
 
 const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
   const { title, completed, id } = todo;
+
   const dispatch = useAppDispatch();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -33,24 +39,24 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
     setInput(e.target.value);
   };
 
-  const handleDeleteTodo = () => {
-    dispatch(todoDeleted(id));
+  const handleDeleteTodo = (id: number) => {
+    dispatch(deleteTodoThunk(id));
   };
 
   const handleCheckTodo = () => {
-    dispatch(todoCompleted(id));
+    dispatch(updateTodoThunk({ id, title: input, completed: !completed }));
   };
 
   const handleEditTodo = () => {
     if (input === "") {
-      dispatch(todoDeleted(id));
+      dispatch(deleteTodoThunk(id));
     } else {
-      dispatch(todoEdited({ id, title: input }));
+      dispatch(updateTodoThunk({ id, title: input, completed }));
     }
   };
 
   const handleBlur = () => {
-    dispatch(todoEdited({ id, title: input }));
+    dispatch(updateTodoThunk({ id, title: input, completed }));
     setIsEditing(false);
   };
 
@@ -76,9 +82,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
           />
 
           <h3 className="todoItem__title">
-            <span className={completed ? "todoItem__done" : ""}>
-              {title}
-            </span>
+            <span className={completed ? "todoItem__done" : ""}>{title}</span>
           </h3>
         </div>
       ) : (
@@ -97,7 +101,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
           <BiPencil />
         </TodoItemBtn>
 
-        <TodoItemBtn onClick={handleDeleteTodo}>
+        <TodoItemBtn onClick={() => handleDeleteTodo(id)}>
           <FiX />
         </TodoItemBtn>
       </div>

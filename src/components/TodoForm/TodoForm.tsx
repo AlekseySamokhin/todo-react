@@ -10,16 +10,17 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 
 // action
-import { todoAdded, allCompleted } from "../../store/todoSlice";
+// import { todoAdded, allCompleted } from "../../store/todoSlice";
+
+import { createTodoThunk } from "../../store/actionsThunk/todoThunk";
 
 // styles
 import TodoFormStyles from "./TodoForm.styles";
 
-
-const CheckAllIcon = styled(AiOutlineCheckCircle)<{isCompletedAll: boolean}>`
+const CheckAllIcon = styled(AiOutlineCheckCircle)<{ complete: boolean }>`
   font-size: 30px;
 
-  color: ${({isCompletedAll}) => (isCompletedAll ? "rgb(209, 202, 202)" : "#3d3a3a")};
+  color: ${({ complete }) => (complete ? "rgb(209, 202, 202)" : "#3d3a3a")};
 `;
 
 const TodoForm: React.FC = () => {
@@ -37,21 +38,23 @@ const TodoForm: React.FC = () => {
     e.preventDefault();
 
     if (input.trim() !== "") {
-      dispatch(todoAdded(input));
+      // dispatch(todoAdded(input));
+
+      dispatch(createTodoThunk(input));
 
       setInput("");
     }
   };
 
-  const handleCheckAllTodo = () => {
-    dispatch(allCompleted());
-  };
+  // const handleCheckAllTodo = () => {
+  //   dispatch(allCompleted());
+  // };
 
   return (
     <TodoFormStyles onSubmit={handleAddTodo}>
       {todos.length !== 0 && (
-        <button className="formTodo__checkAll" onClick={handleCheckAllTodo}>
-          <CheckAllIcon isCompletedAll={isCompletedAll} />
+        <button className="formTodo__checkAll" onClick={() => {}}>
+          <CheckAllIcon complete={isCompletedAll} />
         </button>
       )}
 

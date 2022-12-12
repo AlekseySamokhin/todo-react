@@ -7,7 +7,7 @@ export interface ITodosState {
 export interface ITodoItem {
   title: string;
   completed: boolean;
-  id: string;
+  id: number;
 }
 
 export type FilterTypes = "all" | "completed" | "active";
