@@ -23,10 +23,6 @@ import StylesTodos from "./App.styles";
 const App: React.FC = () => {
   const todos = useAppSelector(getFilteredTodos);
 
-  // useEffect(() => {
-  //   saveTodoItemsToLocalStorage(todos);
-  // }, [todos]);
-
   const taskCounter = useMemo(() => {
     if (todos.length === 0) {
       return `No item left`;

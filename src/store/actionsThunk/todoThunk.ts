@@ -43,10 +43,9 @@ export const updateTodoThunk = createAsyncThunk(
   }
 );
 
-export const completedAllTodo = createAsyncThunk(
+export const completedAllTodoThunk = createAsyncThunk(
   "todos/completedAllTodo",
   async (isCompletedAll: boolean) => {
-    console.log(isCompletedAll)
     await api.completedAllTodo(isCompletedAll);
 
     return isCompletedAll;

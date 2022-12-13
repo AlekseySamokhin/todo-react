@@ -4,14 +4,14 @@ import { ITodosState, ITodoItem } from "./types";
 
 import type { FilterTypes } from "./types";
 
-import { getTodoItemsFromLocalStorage } from "./useLocalStorage";
+// import { getTodoItemsFromLocalStorage } from "./useLocalStorage";
 
 import {
   getTodosThunk,
   createTodoThunk,
   deleteTodoThunk,
   updateTodoThunk,
-  completedAllTodo,
+  completedAllTodoThunk,
 } from "./actionsThunk/todoThunk";
 
 const initialState: ITodosState = {
@@ -49,6 +49,10 @@ export const todoSlice = createSlice({
       if (!action.payload) return;
 
       state.todos = action.payload;
+
+      const complete = action.payload.some((todo: any) => todo.completed);
+
+      state.isCompletedAll = complete;
     });
 
     builder.addCase(getTodosThunk.rejected, (state, action) => {
@@ -90,17 +94,19 @@ export const todoSlice = createSlice({
       console.log(action.error.message);
     });
 
-    builder.addCase(completedAllTodo.fulfilled, (state, action) => {
-      if (!action.payload) return;
-
-      state.todos.forEach((todo) => {
-        todo.completed = !state.isCompletedAll;
-      });
-
-      state.isCompletedAll = !state.isCompletedAll;
+    builder.addCase(completedAllTodoThunk.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.todos.forEach((todo) => {
+          todo.completed = true;
+        });
+      } else {
+        state.todos.forEach((todo) => {
+          todo.completed = false;
+        });
+      }
     });
 
-    builder.addCase(completedAllTodo.rejected, (state, action) => {
+    builder.addCase(completedAllTodoThunk.rejected, (state, action) => {
       console.log(action.error.message);
     });
   },

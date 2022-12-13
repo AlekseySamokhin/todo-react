@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
@@ -12,7 +12,7 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 // action thunk
 import {
   createTodoThunk,
-  completedAllTodo,
+  completedAllTodoThunk,
 } from "../../store/actionsThunk/todoThunk";
 
 // styles
@@ -31,6 +31,12 @@ const TodoForm: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
+  const todosToogle = React.useMemo(() => {
+    const filteredTodos = todos.filter((todo) => todo.completed);
+    const flag = filteredTodos.length !== todos.length;
+    return todos.map((todo) => ({ ...todo, completed: flag }));
+  }, [todos]);
+
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
@@ -47,8 +53,7 @@ const TodoForm: React.FC = () => {
   };
 
   const handleCheckAllTodo = () => {
-    console.log("asagasgasaasasasgas");
-    dispatch(completedAllTodo(isCompletedAll));
+    dispatch(completedAllTodoThunk(todosToogle[0].completed));
   };
 
   return (
