@@ -26,17 +26,17 @@ type TodoListItemProps = {
   todo: ITodoItem;
 };
 
-const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
-  const { title, completed, id } = todo;
+const TodoListItem: React.FC<TodoListItemProps> = (props) => {
+  const { todo } = props;
 
   const dispatch = useAppDispatch();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const [input, setInput] = useState<string>(title);
+  const [text, setText] = useState<string>(todo.title);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+    setText(e.target.value);
   };
 
   const handleDeleteTodo = (id: number) => {
@@ -44,25 +44,43 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
   };
 
   const handleCheckTodo = () => {
-    dispatch(updateTodoThunk({ id, title: input, completed: !completed }));
+    dispatch(
+      updateTodoThunk({
+        id: todo.id,
+        title: text,
+        completed: !todo.completed,
+      })
+    );
   };
 
   const handleEditTodo = () => {
-    if (input === "") {
-      dispatch(deleteTodoThunk(id));
-    } else {
-      dispatch(updateTodoThunk({ id, title: input, completed }));
-    }
+    if (!text) return dispatch(deleteTodoThunk(todo.id));
+
+    dispatch(
+      updateTodoThunk({
+        id: todo.id,
+        title: text,
+        completed: todo.completed,
+      })
+    );
   };
 
   const handleBlur = () => {
-    dispatch(updateTodoThunk({ id, title: input, completed }));
+    dispatch(
+      updateTodoThunk({
+        id: todo.id,
+        title: text,
+        completed: todo.completed,
+      })
+    );
+
     setIsEditing(false);
   };
 
   const handleEditDone = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleEditTodo();
+
       setIsEditing(false);
     }
   };
@@ -77,19 +95,21 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
           <input
             className="todoItem__checkbox"
             type="checkbox"
-            checked={completed}
+            checked={todo.completed}
             onChange={handleCheckTodo}
           />
 
           <h3 className="todoItem__title">
-            <span className={completed ? "todoItem__done" : ""}>{title}</span>
+            <span className={todo.completed ? "todoItem__done" : ""}>
+              {todo.title}
+            </span>
           </h3>
         </div>
       ) : (
         <input
           type="text"
           className="todoItem__input"
-          value={input}
+          value={text}
           onChange={onChangeInput}
           onKeyDown={handleEditDone}
           onBlur={handleBlur}
@@ -101,7 +121,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
           <BiPencil />
         </TodoItemBtn>
 
-        <TodoItemBtn onClick={() => handleDeleteTodo(id)}>
+        <TodoItemBtn onClick={() => handleDeleteTodo(todo.id)}>
           <FiX />
         </TodoItemBtn>
       </div>

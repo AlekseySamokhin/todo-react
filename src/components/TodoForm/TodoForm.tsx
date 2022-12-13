@@ -9,10 +9,11 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 // hooks
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 
-// action
-// import { todoAdded, allCompleted } from "../../store/todoSlice";
-
-import { createTodoThunk } from "../../store/actionsThunk/todoThunk";
+// action thunk
+import {
+  createTodoThunk,
+  completedAllTodo,
+} from "../../store/actionsThunk/todoThunk";
 
 // styles
 import TodoFormStyles from "./TodoForm.styles";
@@ -24,36 +25,36 @@ const CheckAllIcon = styled(AiOutlineCheckCircle)<{ complete: boolean }>`
 `;
 
 const TodoForm: React.FC = () => {
-  const [input, setInput] = useState<string>("");
+  const [text, setText] = useState<string>("");
 
   const { isCompletedAll, todos } = useAppSelector((state) => state.todoList);
 
   const dispatch = useAppDispatch();
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+    setText(e.target.value);
   };
 
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (input.trim() !== "") {
-      // dispatch(todoAdded(input));
-
-      dispatch(createTodoThunk(input));
-
-      setInput("");
+    if (!text.trim()) {
+      return;
     }
+
+    dispatch(createTodoThunk(text));
+    setText("");
   };
 
-  // const handleCheckAllTodo = () => {
-  //   dispatch(allCompleted());
-  // };
+  const handleCheckAllTodo = () => {
+    console.log("asagasgasaasasasgas");
+    dispatch(completedAllTodo(isCompletedAll));
+  };
 
   return (
     <TodoFormStyles onSubmit={handleAddTodo}>
-      {todos.length !== 0 && (
-        <button className="formTodo__checkAll" onClick={() => {}}>
+      {!!todos.length && (
+        <button className="formTodo__checkAll" onClick={handleCheckAllTodo}>
           <CheckAllIcon complete={isCompletedAll} />
         </button>
       )}
@@ -62,7 +63,7 @@ const TodoForm: React.FC = () => {
         className="formTodo__input"
         placeholder="What needs to be done?"
         type="text"
-        value={input}
+        value={text}
         onChange={onInputChange}
       />
 

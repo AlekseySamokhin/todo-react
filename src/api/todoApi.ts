@@ -2,9 +2,10 @@ import { ITodoItem } from "../store/types";
 
 import api from "./api";
 
-interface ITodoUpdateItem {
+interface ITodoUpdateFields {
   title: string;
   completed: boolean;
+  id: number;
 }
 
 const getTodos = () => {
@@ -19,12 +20,23 @@ const deleteTodo = (id: number) => {
   return api.delete<ITodoItem>(`/todos/${id}`);
 };
 
-const updateTodo = (id: number, propetry: ITodoUpdateItem) => {
-  return api.patch<ITodoItem>(`/todos/${id}`, {
-    title: propetry.title,
-    completed: propetry.completed,
+const updateTodo = (property: ITodoUpdateFields) => {
+  return api.patch<ITodoItem>(`/todos/${property.id}`, {
+    title: property.title,
+    completed: property.completed,
   });
 };
 
+const completedAllTodo = (isCompletedAll: boolean) => {
+  console.log("1", isCompletedAll);
+  return api.patch<ITodoItem[]>("/todos", { isCompletedAll });
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { createTodo, getTodos, deleteTodo, updateTodo };
+export default {
+  completedAllTodo,
+  createTodo,
+  getTodos,
+  deleteTodo,
+  updateTodo,
+};

@@ -12,6 +12,8 @@ import { filterSelected } from "../../store/todoSlice";
 // styles
 import { StyledButton, TodoFooterStyles } from "./TodoFooter.styled"
 
+const buttonsFiltersNames: FilterTypes[] = ["all", "active", "completed"];
+
 const TodoFooter: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -29,8 +31,6 @@ const TodoFooter: React.FC = () => {
   const checkFilter = (filter: FilterTypes) => {
     dispatch(filterSelected(filter));
   };
-
-  const buttonsFiltersNames: FilterTypes[] = ["all", "active", "completed"];
 
   return (
     <TodoFooterStyles>

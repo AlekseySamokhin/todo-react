@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 
 // icon components
 import { FaRegCheckCircle } from "react-icons/fa";
@@ -15,7 +15,7 @@ import { useAppSelector } from "./store/hooks";
 import { getFilteredTodos } from "./store/selector";
 
 // use local-storage
-import { saveTodoItemsToLocalStorage } from "./store/useLocalStorage";
+// import { saveTodoItemsToLocalStorage } from "./store/useLocalStorage";
 
 // styled component
 import StylesTodos from "./App.styles";
@@ -23,21 +23,20 @@ import StylesTodos from "./App.styles";
 const App: React.FC = () => {
   const todos = useAppSelector(getFilteredTodos);
 
-  useEffect(() => {
-    saveTodoItemsToLocalStorage(todos);
-  }, [todos]);
+  // useEffect(() => {
+  //   saveTodoItemsToLocalStorage(todos);
+  // }, [todos]);
 
   const taskCounter = useMemo(() => {
-    let count;
     if (todos.length === 0) {
-      count = `No item left`;
-    } else if (todos.length === 1) {
-      count = `${todos.length} item left`;
-    } else {
-      count = `${todos.length} items left`;
+      return `No item left`;
     }
 
-    return count;
+    if (todos.length === 1) {
+      return `${todos.length} item left`;
+    }
+
+    return `${todos.length} items left`;
   }, [todos]);
 
   return (

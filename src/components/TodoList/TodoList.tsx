@@ -43,16 +43,15 @@ const TodoList: React.FC = () => {
         {todosFiltered.map((todo) => (
           <TodoListItem key={todo.id} todo={todo} />
         ))}
-        {/* {todos.map((todo) => (
-          <TodoListItem key={todo.id} todo={todo} />
-        ))} */}
       </ul>
-      {todosFiltered.length === 0 && (
+
+      {!todosFiltered.length && (
         <h3 className="todoList__empty">
           {todosFilter} todos for today is empty...
         </h3>
       )}
-      {lengthCompletedTodos !== 0 && (
+
+      {!!lengthCompletedTodos && (
         <button className="clearCompletedButton" onClick={handleClearCompleted}>
           Clear completed
         </button>
