@@ -1,16 +1,9 @@
 import React, { useMemo } from "react";
 
-// hooks
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-
-// types
 import type { FilterTypes } from "../../store/types";
-
-// action
 import { filterSelected } from "../../store/todoSlice";
-
-// styles
-import { StyledButton, TodoFooterStyles } from "./TodoFooter.styled"
+import { StyledButton, TodoFooterStyles } from "./TodoFooter.styled";
 
 const buttonsFiltersNames: FilterTypes[] = ["all", "active", "completed"];
 
@@ -34,18 +27,16 @@ const TodoFooter: React.FC = () => {
 
   return (
     <TodoFooterStyles>
-      {
-        buttonsFiltersNames.map(filterName => (
-          <StyledButton
-          key={filterName} 
+      {buttonsFiltersNames.map((filterName) => (
+        <StyledButton
+          key={filterName}
           filter={filterName}
           todosFilter={todosFilter}
           onClick={() => checkFilter(filterName)}
         >
           {filterName} {countFilteredTodos[filterName]}
         </StyledButton>
-        ))
-      }
+      ))}
     </TodoFooterStyles>
   );
 };

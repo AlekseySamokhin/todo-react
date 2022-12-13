@@ -43,10 +43,10 @@ export const updateTodoThunk = createAsyncThunk(
   }
 );
 
-export const completedAllTodoThunk = createAsyncThunk(
+export const toggleStatusTodoThunk = createAsyncThunk(
   "todos/completedAllTodo",
   async (isCompletedAll: boolean) => {
-    await api.completedAllTodo(isCompletedAll);
+    await api.toggleStatusAllTodo(isCompletedAll);
 
     return isCompletedAll;
   }

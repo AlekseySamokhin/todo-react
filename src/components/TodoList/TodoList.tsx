@@ -1,20 +1,10 @@
 import React, { useMemo, useEffect } from "react";
 
-// components
 import TodoListItem from "../TodoListItem";
-
-// hooks
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-
-// action
 import { compeletedCleared } from "../../store/todoSlice";
-
-// selector
 import { getFilteredTodos } from "../../store/selector";
-
-// styles
 import { TodoListStyled } from "./TodoList.styled";
-
 import { getTodosThunk } from "../../store/actionsThunk/todoThunk";
 
 const TodoList: React.FC = () => {
@@ -30,7 +20,7 @@ const TodoList: React.FC = () => {
   );
 
   const handleClearCompleted = () => {
-    dispatch(compeletedCleared());
+    // dispatch();
   };
 
   useEffect(() => {

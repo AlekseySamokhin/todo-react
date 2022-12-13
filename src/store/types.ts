@@ -1,6 +1,5 @@
 export interface ITodosState {
   todos: ITodoItem[];
-  isCompletedAll: boolean;
   todosFilter: FilterTypes;
 }
 

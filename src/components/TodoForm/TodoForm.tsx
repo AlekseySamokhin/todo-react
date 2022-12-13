@@ -1,40 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import styled from "styled-components";
-
-// icons components
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { AiOutlineCheckCircle } from "react-icons/ai";
 
-// hooks
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-
-// action thunk
-import {
-  createTodoThunk,
-  completedAllTodoThunk,
-} from "../../store/actionsThunk/todoThunk";
-
-// styles
+import { createTodoThunk, toggleStatusTodoThunk } from "../../store/actionsThunk/todoThunk";
 import TodoFormStyles from "./TodoForm.styles";
-
-const CheckAllIcon = styled(AiOutlineCheckCircle)<{ complete: boolean }>`
-  font-size: 30px;
-
-  color: ${({ complete }) => (complete ? "rgb(209, 202, 202)" : "#3d3a3a")};
-`;
+import { CheckAllIcon } from "./TodoForm.styles";
 
 const TodoForm: React.FC = () => {
   const [text, setText] = useState<string>("");
 
-  const { isCompletedAll, todos } = useAppSelector((state) => state.todoList);
-
   const dispatch = useAppDispatch();
 
-  const todosToogle = React.useMemo(() => {
-    const filteredTodos = todos.filter((todo) => todo.completed);
-    const flag = filteredTodos.length !== todos.length;
-    return todos.map((todo) => ({ ...todo, completed: flag }));
+  const todos = useAppSelector((state) => state.todoList.todos);
+
+  const statusTodos: boolean = React.useMemo(() => {
+    const completedTodos = todos.filter((todo) => todo.completed);
+
+    const completed = completedTodos.length !== todos.length;
+
+    const changeStatusTodos = todos.map((todo) => ({
+      ...todo,
+      completed,
+    }));
+
+    return changeStatusTodos.some((todo) => todo.completed);
   }, [todos]);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,18 +39,19 @@ const TodoForm: React.FC = () => {
     }
 
     dispatch(createTodoThunk(text));
+
     setText("");
   };
 
   const handleCheckAllTodo = () => {
-    dispatch(completedAllTodoThunk(todosToogle[0].completed));
+    dispatch(toggleStatusTodoThunk(statusTodos));
   };
 
   return (
     <TodoFormStyles onSubmit={handleAddTodo}>
       {!!todos.length && (
         <button className="formTodo__checkAll" onClick={handleCheckAllTodo}>
-          <CheckAllIcon complete={isCompletedAll} />
+          <CheckAllIcon complete={statusTodos} />
         </button>
       )}
 

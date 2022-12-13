@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ITodosState, ITodoItem } from "./types";
+import { ITodosState } from "./types";
 
 import type { FilterTypes } from "./types";
 
@@ -11,13 +11,12 @@ import {
   createTodoThunk,
   deleteTodoThunk,
   updateTodoThunk,
-  completedAllTodoThunk,
+  toggleStatusTodoThunk,
 } from "./actionsThunk/todoThunk";
 
 const initialState: ITodosState = {
   // todos: getTodoItemsFromLocalStorage(),
   todos: [],
-  isCompletedAll: false,
   todosFilter: "all",
 };
 
@@ -25,18 +24,8 @@ export const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    allCompleted: (state) => {
-      state.todos.forEach((todo) => {
-        todo.completed = !state.isCompletedAll;
-      });
-
-      state.isCompletedAll = !state.isCompletedAll;
-    },
-
     compeletedCleared: (state) => {
       state.todos = state.todos.filter((todo) => !todo.completed);
-
-      state.isCompletedAll = !state.isCompletedAll;
     },
 
     filterSelected: (state, action: PayloadAction<FilterTypes>) => {
@@ -49,10 +38,6 @@ export const todoSlice = createSlice({
       if (!action.payload) return;
 
       state.todos = action.payload;
-
-      const complete = action.payload.some((todo: any) => todo.completed);
-
-      state.isCompletedAll = complete;
     });
 
     builder.addCase(getTodosThunk.rejected, (state, action) => {
@@ -94,26 +79,17 @@ export const todoSlice = createSlice({
       console.log(action.error.message);
     });
 
-    builder.addCase(completedAllTodoThunk.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.todos.forEach((todo) => {
-          todo.completed = true;
-        });
-      } else {
-        state.todos.forEach((todo) => {
-          todo.completed = false;
-        });
-      }
+    builder.addCase(toggleStatusTodoThunk.fulfilled, (state, action) => {
+      state.todos.forEach((todo) => (todo.completed = action.payload));
     });
 
-    builder.addCase(completedAllTodoThunk.rejected, (state, action) => {
+    builder.addCase(toggleStatusTodoThunk.rejected, (state, action) => {
       console.log(action.error.message);
     });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { allCompleted, compeletedCleared, filterSelected } =
-  todoSlice.actions;
+export const { compeletedCleared, filterSelected } = todoSlice.actions;
 
 export default todoSlice.reducer;

@@ -21,15 +21,20 @@ const updateTodo = (property: ITodoItem) => {
   });
 };
 
-const completedAllTodo = (isCompletedAll: boolean) => {
+const toggleStatusAllTodo = (isCompletedAll: boolean) => {
   return api.patch<ITodoItem[]>("/todos", { isCompletedAll });
+};
+
+const clearCompletedTodo = () => {
+  return api.get("/todos/clear");
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  completedAllTodo,
   createTodo,
   getTodos,
   deleteTodo,
   updateTodo,
+  toggleStatusAllTodo,
+  clearCompletedTodo,
 };

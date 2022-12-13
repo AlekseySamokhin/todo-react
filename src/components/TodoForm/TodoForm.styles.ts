@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { AiOutlineCheckCircle } from "react-icons/ai";
+
 export default styled.form`
   position: relative;
   width: 100%;
@@ -53,4 +55,10 @@ export default styled.form`
   .active {
     color: #3d3a3a;
   }
+`;
+
+export const CheckAllIcon = styled(AiOutlineCheckCircle)<{ complete: boolean }>`
+  font-size: 30px;
+
+  color: ${({ complete }) => (complete ? "rgb(209, 202, 202)" : "#3d3a3a")};
 `;
