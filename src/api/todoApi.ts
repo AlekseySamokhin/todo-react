@@ -26,7 +26,6 @@ const toggleStatusAllTodo = (isCompletedAll: boolean) => {
 };
 
 const clearCompletedTodo = () => {
-  console.log(1);
   return api.delete("/todos");
 };
 

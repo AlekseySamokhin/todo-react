@@ -4,9 +4,10 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { createTodoThunk, toggleStatusTodoThunk } from "../../store/actionsThunk/todoThunk";
+import { filterSelected } from "../../store/todoSlice";
+
 import TodoFormStyles from "./TodoForm.styles";
 import { CheckAllIcon } from "./TodoForm.styles";
-import { filterSelected } from "../../store/todoSlice";
 
 const TodoForm: React.FC = () => {
   const [text, setText] = useState<string>("");
@@ -27,6 +28,7 @@ const TodoForm: React.FC = () => {
 
     return changeStatusTodos.some((todo) => todo.completed);
   }, [todos]);
+
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -55,7 +57,7 @@ const TodoForm: React.FC = () => {
   return (
     <TodoFormStyles onSubmit={handleAddTodo}>
       {!!todos.length && (
-        <button className="formTodo__checkAll" onClick={handleCheckAllTodo}>
+        <button className="formTodo__checkAll" type="button" onClick={handleCheckAllTodo}>
           <CheckAllIcon complete={!statusTodos} />
         </button>
       )}

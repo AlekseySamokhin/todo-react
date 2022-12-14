@@ -12,13 +12,14 @@ import {
   deleteTodoThunk,
   updateTodoThunk,
   toggleStatusTodoThunk,
-  clearCompletedTodoThunk
+  clearCompletedTodoThunk,
 } from "./actionsThunk/todoThunk";
 
 const initialState: ITodosState = {
   // todos: getTodoItemsFromLocalStorage(),
   todos: [],
   todosFilter: "all",
+  error: "",
 };
 
 export const todoSlice = createSlice({
@@ -35,18 +36,48 @@ export const todoSlice = createSlice({
       if (!action.payload) return;
 
       state.todos = action.payload;
+
+      state.error = "";
+    });
+
+    builder.addCase(getTodosThunk.rejected, (state, action) => {
+      if (!action.payload) return;
+
+      state.error = action.payload;
+
+      console.error(state.error);
     });
 
     builder.addCase(createTodoThunk.fulfilled, (state, action) => {
       if (!action.payload) return;
 
       state.todos.push(action.payload);
+
+      state.error = "";
+    });
+
+    builder.addCase(createTodoThunk.rejected, (state, action) => {
+      if (!action.payload) return;
+
+      state.error = action.payload;
+
+      console.error(state.error);
     });
 
     builder.addCase(deleteTodoThunk.fulfilled, (state, action) => {
       if (!action.payload) return;
 
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+
+      state.error = "";
+    });
+
+    builder.addCase(deleteTodoThunk.rejected, (state, action) => {
+      if (!action.payload) return;
+
+      state.error = action.payload;
+
+      console.error(state.error);
     });
 
     builder.addCase(updateTodoThunk.fulfilled, (state, action) => {
@@ -58,14 +89,44 @@ export const todoSlice = createSlice({
 
       state.todos[index].title = action.payload.title;
       state.todos[index].completed = action.payload.completed;
+
+      state.error = "";
+    });
+
+    builder.addCase(updateTodoThunk.rejected, (state, action) => {
+      if (!action.payload) return;
+
+      state.error = action.payload;
+
+      console.error(state.error);
     });
 
     builder.addCase(toggleStatusTodoThunk.fulfilled, (state, action) => {
       state.todos.forEach((todo) => (todo.completed = action.payload));
+
+      state.error = "";
+    });
+
+    builder.addCase(toggleStatusTodoThunk.rejected, (state, action) => {
+      if (!action.payload) return;
+
+      state.error = action.payload;
+
+      console.error(state.error);
     });
 
     builder.addCase(clearCompletedTodoThunk.fulfilled, (state, action) => {
+      if (!action.payload) return;
+
       state.todos = action.payload;
+    });
+
+    builder.addCase(clearCompletedTodoThunk.rejected, (state, action) => {
+      if (!action.payload) return;
+
+      state.error = action.payload;
+
+      console.error(state.error);
     });
   },
 });
