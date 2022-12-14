@@ -26,7 +26,8 @@ const toggleStatusAllTodo = (isCompletedAll: boolean) => {
 };
 
 const clearCompletedTodo = () => {
-  return api.get("/todos/clear");
+  console.log(1);
+  return api.delete("/todos");
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

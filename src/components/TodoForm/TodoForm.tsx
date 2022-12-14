@@ -6,13 +6,14 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { createTodoThunk, toggleStatusTodoThunk } from "../../store/actionsThunk/todoThunk";
 import TodoFormStyles from "./TodoForm.styles";
 import { CheckAllIcon } from "./TodoForm.styles";
+import { filterSelected } from "../../store/todoSlice";
 
 const TodoForm: React.FC = () => {
   const [text, setText] = useState<string>("");
 
   const dispatch = useAppDispatch();
 
-  const todos = useAppSelector((state) => state.todoList.todos);
+  const { todos, todosFilter } = useAppSelector((state) => state.todoList);
 
   const statusTodos: boolean = React.useMemo(() => {
     const completedTodos = todos.filter((todo) => todo.completed);
@@ -34,6 +35,10 @@ const TodoForm: React.FC = () => {
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (todosFilter === "completed") {
+      dispatch(filterSelected("active"));
+    }
+
     if (!text.trim()) {
       return;
     }
@@ -51,7 +56,7 @@ const TodoForm: React.FC = () => {
     <TodoFormStyles onSubmit={handleAddTodo}>
       {!!todos.length && (
         <button className="formTodo__checkAll" onClick={handleCheckAllTodo}>
-          <CheckAllIcon complete={statusTodos} />
+          <CheckAllIcon complete={!statusTodos} />
         </button>
       )}
 

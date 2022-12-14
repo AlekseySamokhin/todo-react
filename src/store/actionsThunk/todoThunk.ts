@@ -51,3 +51,12 @@ export const toggleStatusTodoThunk = createAsyncThunk(
     return isCompletedAll;
   }
 );
+
+export const clearCompletedTodoThunk = createAsyncThunk(
+  "todos/clearCompleted",
+  async () => {
+    const todos = await api.clearCompletedTodo();
+
+    return todos.data;
+  }
+);
